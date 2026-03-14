@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLM Demo Runner — PyConf Hyderabad 2026</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --sidebar: #0f1623;
+    --card: #131929;
+    --card2: #161d30;
+    --border: #1e2d45;
+    --accent: #7c6af7;
+    --accent-dim: #4a3fc9;
+    --accent-glow: rgba(124, 106, 247, 0.15);
+    --green: #4ade80;
+    --green-dim: rgba(74, 222, 128, 0.12);
+    --yellow: #fbbf24;
+    --red: #f85149;
+    --red-dim: rgba(248, 81, 73, 0.12);
+    --text: #e2e8f0;
+    --text-dim: #8b9ab4;
+    --text-muted: #4a5568;
+    --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --sidebar-w: 280px;
+    --transition: 0.18s ease;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+
+  /* ── Layout ────────────────────────────────────────── */
+  #app {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ───────────────────────────────────────── */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .sidebar-header {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-logo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .sidebar-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .sidebar-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 3px;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 10px;
+  }
+
+  .sidebar-nav::-webkit-scrollbar { width: 4px; }
+  .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+  .sidebar-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .nav-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background var(--transition), border-color var(--transition);
+    margin-bottom: 4px;
+    position: relative;
+  }
+
+  .nav-item:hover {
+    background: rgba(124, 106, 247, 0.07);
+    border-color: var(--border);
+  }
+
+  .nav-item.active {
+    background: var(--accent-glow);
+    border-color: rgba(124, 106, 247, 0.3);
+  }
+
+  .nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-top: 1px;
+    flex-shrink: 0;
+    min-width: 18px;
+    text-align: center;
+    line-height: 16px;
+  }
+
+  .nav-item.active .nav-key {
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    margin-top: 5px;
+    flex-shrink: 0;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .nav-dot.green {
+    background: var(--green);
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+  }
+
+  .nav-dot.yellow {
+    background: var(--yellow);
+    box-shadow: 0 0 6px rgba(251, 191, 36, 0.5);
+    animation: pulse-yellow 1.5s ease-in-out infinite;
+  }
+
+  .nav-dot.red {
+    background: var(--red);
+    box-shadow: 0 0 6px rgba(248, 81, 73, 0.4);
+  }
+
+  @keyframes pulse-yellow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .nav-info { flex: 1; min-width: 0; }
+
+  .nav-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+  }
+
+  .nav-badges {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 1px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    line-height: 15px;
+  }
+
+  .badge-mlx {
+    background: rgba(124, 106, 247, 0.2);
+    color: #a89cf8;
+    border: 1px solid rgba(124, 106, 247, 0.3);
+  }
+
+  .badge-ollama {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+  }
+
+  .badge-hf {
+    background: rgba(255, 112, 67, 0.15);
+    color: #ff8a65;
+    border: 1px solid rgba(255, 112, 67, 0.3);
+  }
+
+  .badge-params {
+    background: rgba(139, 154, 180, 0.12);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  .sidebar-footer {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .kbd-hint {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .kbd-hint kbd {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--border);
+    border: 1px solid #2a3a52;
+    border-radius: 3px;
+    padding: 0 5px;
+    color: var(--text-dim);
+  }
+
+  /* ── Main Content ──────────────────────────────────── */
+  #main {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .demo-panel {
+    display: none;
+    height: 100%;
+    overflow-y: auto;
+    padding: 28px 32px;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .demo-panel.active {
+    display: block;
+  }
+
+  .demo-panel::-webkit-scrollbar { width: 6px; }
+  .demo-panel::-webkit-scrollbar-track { background: transparent; }
+  .demo-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Panel Header ──────────────────────────────────── */
+  .panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    gap: 12px;
+  }
+
+  .panel-title-group { flex: 1; min-width: 0; }
+
+  .panel-number {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+    font-family: var(--mono);
+  }
+
+  .panel-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .panel-model-badges {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .panel-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin: 10px 0 20px;
+    line-height: 1.6;
+    max-width: 700px;
+  }
+
+  .panel-desc strong {
+    color: var(--text);
+  }
+
+  /* ── Card ──────────────────────────────────────────── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .card-section {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+
+  /* ── Textarea ──────────────────────────────────────── */
+  textarea.prompt-input {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    padding: 12px 14px;
+    resize: vertical;
+    min-height: 90px;
+    outline: none;
+    transition: border-color var(--transition);
+  }
+
+  textarea.prompt-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+  }
+
+  /* ── File Drop Zone ────────────────────────────────── */
+  .drop-zone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition);
+    background: var(--card2);
+    margin-bottom: 12px;
+  }
+
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .drop-zone-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .drop-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .drop-text {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  .drop-text strong {
+    display: block;
+    color: var(--text);
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  .file-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .file-thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  .file-info .file-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+    margin-bottom: 3px;
+    word-break: break-all;
+  }
+
+  .file-info .file-clear {
+    font-size: 11px;
+    color: var(--red);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .file-info .file-clear:hover { color: #ff8080; }
+
+  /* ── Buttons ───────────────────────────────────────── */
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition);
+    letter-spacing: 0.01em;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: #6b5af0;
+    box-shadow: 0 0 16px rgba(124, 106, 247, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    background: var(--card2);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--border);
+    color: var(--text);
+  }
+
+  .btn-stop {
+    background: rgba(239, 68, 68, 0.15) !important;
+    color: #f87171 !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+  }
+  .btn-stop:hover {
+    background: rgba(239, 68, 68, 0.28) !important;
+  }
+
+  .file-btn {
+    background: var(--card2);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12.5px;
+    transition: all 0.15s;
+  }
+  .file-btn:hover {
+    background: var(--border);
+    color: var(--text);
+  }
+  .file-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* Demo 2 split layout */
+  .demo2-split {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .demo2-output-col {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .demo2-preview-box-unused {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .demo2-preview-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+  .preview-placeholder {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .btn-run-both {
+    background: linear-gradient(135deg, var(--accent), #5b9cf6);
+    color: #fff;
+    padding: 9px 22px;
+    font-size: 13.5px;
+  }
+
+  .btn-run-both:hover:not(:disabled) {
+    box-shadow: 0 0 20px rgba(124, 106, 247, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* Spinner */
+  .spinner {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .spinner-accent {
+    border-color: rgba(124, 106, 247, 0.25);
+    border-top-color: var(--accent);
+  }
+
+  /* ── Output ────────────────────────────────────────── */
+  .output-area {
+    background: #080c14;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    min-height: 160px;
+    max-height: 340px;
+    overflow-y: auto;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    position: relative;
+  }
+
+  .output-area::-webkit-scrollbar { width: 4px; }
+  .output-area::-webkit-scrollbar-track { background: transparent; }
+  .output-area::-webkit-scrollbar-thumb { background: #1e2d45; border-radius: 4px; }
+
+  .output-placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  .output-think {
+    color: #525e75;
+    font-style: italic;
+  }
+
+  .output-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 13px;
+    background: var(--accent);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+    margin-left: 1px;
+    border-radius: 1px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Error banner */
+  .error-banner {
+    background: var(--red-dim);
+    border: 1px solid rgba(248, 81, 73, 0.3);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--red);
+    font-family: var(--mono);
+    margin-top: 10px;
+    display: none;
+  }
+
+  /* ── Metrics Strip ─────────────────────────────────── */
+  .metrics-strip {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--green-dim);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    border-radius: var(--radius);
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    flex-wrap: wrap;
+    animation: slideUp 0.3s ease;
+  }
+
+  .metrics-strip.visible {
+    display: flex;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .metrics-icon { font-size: 14px; }
+
+  .metrics-sep {
+    color: rgba(74, 222, 128, 0.35);
+    font-weight: 300;
+  }
+
+  /* ── Split Panel (Demo 3) ──────────────────────────── */
+  .split-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .split-col {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .split-col-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .split-col-title {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .split-col-title .tag-no-think {
+    color: #8b9ab4;
+  }
+
+  .split-col-title .tag-think {
+    color: var(--accent);
+  }
+
+  .split-col-body {
+    padding: 14px 16px;
+  }
+
+  .split-output {
+    min-height: 220px;
+    max-height: 300px;
+  }
+
+  .split-metrics {
+    margin-top: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+
+  .demo3-bottom {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+  }
+
+  .demo3-prompt-row {
+    margin-bottom: 14px;
+  }
+
+  .demo3-run-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Status bar ────────────────────────────────────── */
+  #status-bar {
+    position: fixed;
+    bottom: 0; left: var(--sidebar-w); right: 0;
+    height: 24px;
+    background: var(--sidebar);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    z-index: 10;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  .status-dot.green { background: var(--green); box-shadow: 0 0 4px rgba(74,222,128,0.5); }
+  .status-dot.red { background: var(--red); }
+
+  /* ── Utility ───────────────────────────────────────── */
+  .mt-10 { margin-top: 10px; }
+  .mt-14 { margin-top: 14px; }
+  .mt-20 { margin-top: 20px; }
+
+  /* ── Responsive tweaks ─────────────────────────────── */
+  @media (max-width: 960px) {
+    .split-columns { grid-template-columns: 1fr; }
+    :root { --sidebar-w: 230px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ═══════════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════════ -->
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">PyConf Hyderabad 2026</div>
+      <div class="sidebar-title">Small Language Models</div>
+      <div class="sidebar-sub">Local inference demo suite</div>
+    </div>
+
+    <div class="sidebar-nav">
+
+      <div class="nav-item active" onclick="switchDemo(1)" id="nav-1">
+        <span class="nav-key">1</span>
+        <span class="nav-dot" id="dot-1"></span>
+        <div class="nav-info">
+          <div class="nav-name">JSON Parsing</div>
+          <div class="nav-badges">
+            <span class="badge badge-ollama" id="runtime-badge-1">Ollama</span>
+            <span class="badge badge-params">2B</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item" onclick="switchDemo(2)" id="nav-2">
+        <span class="nav-key">2</span>
+        <span class="nav-dot" id="dot-2"></span>
+        <div class="nav-info">
+          <div class="nav-name">Vision OCR</div>
+          <div class="nav-badges">
+            <span class="badge badge-mlx" id="runtime-badge-2">MLX</span>
+            <span class="badge badge-params">0.9B</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item" onclick="switchDemo(3)" id="nav-3">
+        <span class="nav-key">3</span>
+        <span class="nav-dot" id="dot-3"></span>
+        <div class="nav-info">
+          <div class="nav-name">General Reasoning</div>
+          <div class="nav-badges">
+            <span class="badge badge-ollama" id="runtime-badge-3">Ollama</span>
+            <span class="badge badge-params">2B</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item" onclick="switchDemo(4)" id="nav-4">
+        <span class="nav-key">4</span>
+        <span class="nav-dot" id="dot-4"></span>
+        <div class="nav-info">
+          <div class="nav-name">Code Generation</div>
+          <div class="nav-badges">
+            <span class="badge badge-ollama" id="runtime-badge-4">Ollama</span>
+            <span class="badge badge-params">4B</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item" onclick="switchDemo(5)" id="nav-5">
+        <span class="nav-key">5</span>
+        <span class="nav-dot" id="dot-5"></span>
+        <div class="nav-info">
+          <div class="nav-name">Multilingual</div>
+          <div class="nav-badges">
+            <span class="badge badge-ollama" id="runtime-badge-5">Ollama</span>
+            <span class="badge badge-params">3B</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="kbd-hint">
+        <kbd>1</kbd>–<kbd>4</kbd> Switch demo<br>
+        <kbd>R</kbd> Run &nbsp;&nbsp; <kbd>D</kbd> Clear<br>
+        All inference runs locally
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════════ -->
+  <main id="main">
+
+    <!-- ── Demo 1: JSON Parsing ───────────────── -->
+    <div class="demo-panel active" id="panel-1">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-number">Demo 01</div>
+          <div class="panel-title">JSON Parsing</div>
+          <div class="panel-model-badges">
+            <span class="badge badge-ollama">Ollama</span>
+            <span class="badge badge-params">NuExtract-2.0 · 2B</span>
+          </div>
+        </div>
+      </div>
+      <p class="panel-desc">
+        RL-trained on 500K JSON examples — <strong>no prompt engineering needed</strong>.
+        Structured output from raw text with a 600M parameter model.
+      </p>
+
+      <div class="card">
+        <div class="card-section">
+          <div class="section-label">Prompt</div>
+          <textarea class="prompt-input" id="prompt-1" rows="4"
+            placeholder="Loading prompt…"></textarea>
+        </div>
+        <div class="card-section">
+          <div class="btn-row" style="margin-top:0">
+            <button class="btn btn-primary" onclick="runDemo(1)" id="run-btn-1">
+              <span>▶ Run</span>
+            </button>
+            <button class="btn btn-secondary" onclick="clearOutput(1)">Clear</button>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Output</div>
+          <div class="output-area" id="output-1">
+            <span class="output-placeholder">Output will appear here…</span>
+          </div>
+          <div class="error-banner" id="error-1"></div>
+          <div class="metrics-strip" id="metrics-1">
+            <span class="metrics-icon">⚡</span>
+            <span id="metrics-text-1">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Demo 2: Vision OCR ─────────────────────── -->
+    <div class="demo-panel" id="panel-2">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-number">Demo 02</div>
+          <div class="panel-title">Vision OCR</div>
+          <div class="panel-model-badges">
+            <span class="badge badge-mlx">MLX</span>
+            <span class="badge badge-params">PaddleOCR-VL-1.5 · 0.9B</span>
+          </div>
+        </div>
+      </div>
+      <p class="panel-desc">
+        0.9B vision-language model — <strong>document OCR in one call</strong>,
+        no pipeline, no Tesseract, no postprocessing.
+      </p>
+
+      <div class="card">
+        <div class="card-section">
+          <div class="section-label">Prompt</div>
+          <textarea class="prompt-input" id="prompt-2" rows="3"
+            placeholder="Loading prompt…"></textarea>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Document</div>
+          <div id="file-picker-2" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="flex:0 0 300px">
+              <img id="preview-img-2" src="" alt="" style="display:none;width:100%;border-radius:6px;border:1px solid var(--border)">
+              <div id="preview-placeholder-2" style="width:100%;height:200px;background:var(--card2);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:12px">Select a file above</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div class="btn-row" style="margin-top:0;margin-bottom:10px">
+                <button class="btn btn-primary" onclick="runDemo(2)" id="run-btn-2">
+                  <span>▶ Run</span>
+                </button>
+                <button class="btn btn-secondary" onclick="clearOutput(2)">Clear</button>
+              </div>
+              <div class="output-area" id="output-2" style="height:360px">
+                <span class="output-placeholder">Output will appear here…</span>
+              </div>
+              <div class="error-banner" id="error-2"></div>
+              <div class="metrics-strip" id="metrics-2">
+                <span class="metrics-icon">⚡</span>
+                <span id="metrics-text-2">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Demo 3: Think vs Direct ───────────────── -->
+    <div class="demo-panel" id="panel-3">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-number">Demo 03</div>
+          <div class="panel-title">General Reasoning</div>
+          <div class="panel-model-badges">
+            <span class="badge badge-ollama">Ollama</span>
+            <span class="badge badge-params">Qwen3.5 · 2B</span>
+          </div>
+        </div>
+      </div>
+      <p class="panel-desc">
+        Same model, same prompt — <strong>4× better with thinking mode</strong>
+        (AIME 2025: 36.7% vs 9.3%). Watch the reasoning unfold in real time.
+      </p>
+
+      <div class="demo3-bottom card" style="margin-bottom:16px">
+        <div class="card-section">
+          <div class="section-label">Shared Prompt</div>
+          <textarea class="prompt-input" id="prompt-3" rows="3"
+            placeholder="Loading prompt…"></textarea>
+        </div>
+        <div class="card-section">
+          <div class="demo3-run-row">
+            <button class="btn btn-run-both" onclick="runBoth()" id="run-both-btn">
+              ▶ Run Both
+            </button>
+            <span style="font-size:11px;color:var(--text-muted)">— or run individually below</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-columns">
+
+        <!-- Left: Direct -->
+        <div class="split-col">
+          <div class="split-col-header">
+            <span class="split-col-title">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--text-muted)">/no_think</span>
+              &nbsp;<span class="tag-no-think">Direct</span>
+            </span>
+            <button class="btn btn-secondary" style="padding:5px 12px;font-size:12px"
+                    onclick="runDemo(3, 'direct')" id="run-btn-3-direct">▶ Run Direct</button>
+          </div>
+          <div class="split-col-body">
+            <div class="output-area split-output" id="output-3-direct">
+              <span class="output-placeholder">Awaiting run…</span>
+            </div>
+          </div>
+          <div class="metrics-strip split-metrics" id="metrics-3-direct">
+            <span class="metrics-icon">⚡</span>
+            <span id="metrics-text-3-direct">—</span>
+          </div>
+        </div>
+
+        <!-- Right: Think -->
+        <div class="split-col">
+          <div class="split-col-header">
+            <span class="split-col-title">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--accent)">/think</span>
+              &nbsp;<span class="tag-think">With Thinking</span>
+            </span>
+            <button class="btn btn-secondary" style="padding:5px 12px;font-size:12px"
+                    onclick="runDemo(3, 'think')" id="run-btn-3-think">▶ Run Think</button>
+          </div>
+          <div class="split-col-body">
+            <div class="output-area split-output" id="output-3-think">
+              <span class="output-placeholder">Awaiting run…</span>
+            </div>
+          </div>
+          <div class="metrics-strip split-metrics" id="metrics-3-think">
+            <span class="metrics-icon">⚡</span>
+            <span id="metrics-text-3-think">—</span>
+          </div>
+        </div>
+
+      </div>
+      <!-- error banners for demo 3 -->
+      <div class="error-banner" id="error-3-direct"></div>
+      <div class="error-banner" id="error-3-think" style="margin-top:6px"></div>
+    </div>
+
+    <!-- ── Demo 4: Code Generation ────────────────── -->
+    <div class="demo-panel" id="panel-4">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-number">Demo 04</div>
+          <div class="panel-title">Code Generation</div>
+          <div class="panel-model-badges">
+            <span class="badge badge-ollama">Ollama</span>
+            <span class="badge badge-params">Qwen3.5 · 4B</span>
+          </div>
+        </div>
+      </div>
+      <p class="panel-desc">
+        Production-quality code, locally — <strong>no Copilot subscription needed</strong>.
+        Qwen3-Coder running on Apple Silicon.
+      </p>
+
+      <div class="card">
+        <div class="card-section">
+          <div class="section-label">Prompt</div>
+          <textarea class="prompt-input" id="prompt-4" rows="5"
+            placeholder="Loading prompt…"></textarea>
+        </div>
+        <div class="card-section">
+          <div class="btn-row" style="margin-top:0">
+            <button class="btn btn-primary" onclick="runDemo(4)" id="run-btn-4">
+              <span>▶ Run</span>
+            </button>
+            <button class="btn btn-secondary" onclick="clearOutput(4)">Clear</button>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Output</div>
+          <div class="output-area" id="output-4">
+            <span class="output-placeholder">Output will appear here…</span>
+          </div>
+          <div class="error-banner" id="error-4"></div>
+          <div class="metrics-strip" id="metrics-4">
+            <span class="metrics-icon">⚡</span>
+            <span id="metrics-text-4">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Demo 5: Multilingual ──────────────────── -->
+    <div class="demo-panel" id="panel-5">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-number">Demo 05</div>
+          <div class="panel-title">Multilingual</div>
+          <div class="panel-model-badges">
+            <span class="badge badge-ollama">Ollama</span>
+            <span class="badge badge-params">Tiny Aya Fire · 3B</span>
+          </div>
+        </div>
+      </div>
+      <p class="panel-desc">
+        South Asian languages natively — <strong>Tamil, Telugu, Hindi and more</strong>,
+        no translation layer, no fine-tuning required.
+      </p>
+
+      <div class="card">
+        <div class="card-section">
+          <div class="section-label">Prompt</div>
+          <textarea class="prompt-input" id="prompt-5" rows="5"
+            placeholder="Loading prompt…"></textarea>
+        </div>
+        <div class="card-section">
+          <div class="btn-row" style="margin-top:0">
+            <button class="btn btn-primary" onclick="runDemo(5)" id="run-btn-5">
+              <span>▶ Run</span>
+            </button>
+            <button class="btn btn-secondary" onclick="clearOutput(5)">Clear</button>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Output</div>
+          <div class="output-area" id="output-5">
+            <span class="output-placeholder">Output will appear here…</span>
+          </div>
+          <div class="error-banner" id="error-5"></div>
+          <div class="metrics-strip" id="metrics-5">
+            <span class="metrics-icon">⚡</span>
+            <span id="metrics-text-5">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Status bar -->
+<div id="status-bar">
+  <span><span class="status-dot" id="status-dot"></span><span id="status-text">Checking backends…</span></span>
+  <span style="margin-left:auto">PyConf Hyderabad 2026 · SLM Talk</span>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════ */
+let currentDemo = 1;
+let selectedFile2 = null;       // selected filename for demo 2 (server-side)
+let runningStreams = {};         // demoKey → EventSource
+let currentRunIds = {};         // demoKey → run_id
+let outputBuffers = {};         // demoKey → accumulated string
+
+/* ══════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  pollHealth();
+  loadDemoPrompts();
+  loadFiles();
+});
+
+/* ══════════════════════════════════════════════════════════
+   DEMO SWITCHING
+══════════════════════════════════════════════════════════ */
+function switchDemo(id) {
+  id = parseInt(id);
+  // Hide all panels
+  document.querySelectorAll('.demo-panel').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  // Show target
+  const panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+  const nav = document.getElementById('nav-' + id);
+  if (nav) nav.classList.add('active');
+  currentDemo = id;
+}
+
+/* ══════════════════════════════════════════════════════════
+   HEALTH POLLING
+══════════════════════════════════════════════════════════ */
+async function pollHealth() {
+  const dots = [1,2,3,4,5];
+  dots.forEach(i => setDot(i, 'yellow'));
+  try {
+    const res = await fetch('/api/health');
+    const data = await res.json();
+    dots.forEach(i => {
+      const status = data[i];
+      const ok = status && status.ok;
+      setDot(i, ok ? 'green' : 'red');
+    });
+    const allOk = dots.every(i => { const status = data[i]; return status && status.ok; });
+    setStatus(allOk ? 'green' : 'red',
+      allOk ? 'All backends ready' : 'Some backends unavailable');
+  } catch (e) {
+    dots.forEach(i => setDot(i, 'red'));
+    setStatus('red', 'Cannot reach backend — check server');
+  }
+  // Re-poll every 15s
+  setTimeout(pollHealth, 15000);
+}
+
+function setDot(id, color) {
+  const el = document.getElementById('dot-' + id);
+  if (!el) return;
+  el.className = 'nav-dot ' + color;
+}
+
+function setStatus(color, text) {
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  if (dot) dot.className = 'status-dot ' + color;
+  if (txt) txt.textContent = text;
+}
+
+/* ══════════════════════════════════════════════════════════
+   LOAD PROMPTS
+══════════════════════════════════════════════════════════ */
+async function loadFiles() {
+  try {
+    const res = await fetch('/api/files');
+    const { files } = await res.json();
+    const picker = document.getElementById('file-picker-2');
+    if (!picker || !files.length) return;
+    picker.innerHTML = '';
+    files.forEach((name, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-secondary file-btn';
+      btn.id = 'file-btn-' + i;
+      btn.textContent = name;
+      btn.onclick = () => {
+        document.querySelectorAll('.file-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedFile2 = name;
+        const img = document.getElementById('preview-img-2');
+        const ph = document.getElementById('preview-placeholder-2');
+        if (img) { img.src = '/api/preview/' + encodeURIComponent(name); img.style.display = 'block'; }
+        if (ph) ph.style.display = 'none';
+      };
+      picker.appendChild(btn);
+      if (i === 0) { btn.click(); }  // select first by default
+    });
+  } catch (e) { /* no files */ }
+}
+
+
+async function loadDemoPrompts() {
+  try {
+    const res = await fetch('/api/demos');
+    const data = await res.json();
+    Object.entries(data).forEach(([id, demo]) => {
+    const ta = document.getElementById('prompt-' + id);
+    if (ta && demo.prompt) ta.value = demo.prompt;
+    });
+  } catch (e) {
+    // Fallback prompts
+    const fallbacks = {
+      1: 'Extract the following into JSON: "John Doe, 34 years old, Software Engineer at Anthropic, joined 2022-03-15, salary $145,000"',
+      2: 'Extract all text and key fields from this invoice as JSON.',
+      3: 'Solve: If a train travels at 60 km/h for 2.5 hours, then at 80 km/h for 1.5 hours, what is the total distance?',
+      4: 'Write a Python function that implements a binary search tree with insert, search, and in-order traversal methods. Include docstrings and type hints.'
+    };
+    [1,2,3,4].forEach(i => {
+      const ta = document.getElementById('prompt-' + i);
+      if (ta) ta.value = fallbacks[i];
+    });
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   RUN DEMO  (main function)
+══════════════════════════════════════════════════════════ */
+async function runDemo(demoId, thinkMode = null) {
+  const key = thinkMode ? (demoId + '-' + thinkMode) : String(demoId);
+
+  // Cancel any existing stream for this slot
+  if (runningStreams[key]) {
+    runningStreams[key].close();
+    delete runningStreams[key];
+  }
+
+  const prompt = document.getElementById('prompt-' + demoId)?.value?.trim();
+  if (!prompt) return;
+
+  // UI: set loading state
+  setRunning(key, true);
+  clearOutputEl(key);
+
+  // Build request body
+  const body = { prompt, think_mode: thinkMode };
+  if (demoId === 2) {
+    body.selected_file = selectedFile2 || null;
+    body.image_b64 = null;
+  }
+
+  let runId;
+  try {
+    const res = await fetch('/api/run/' + demoId, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      showError(key, 'Server error ' + res.status + ': ' + err);
+      setRunning(key, false);
+      return;
+    }
+    const data = await res.json();
+    runId = data.run_id;
+  } catch (e) {
+    showError(key, 'Network error: ' + e.message);
+    setRunning(key, false);
+    return;
+  }
+
+  // Stream tokens
+  outputBuffers[key] = '';
+  currentRunIds[key] = runId;
+  const es = new EventSource('/api/stream/' + runId);
+  runningStreams[key] = es;
+  const outputEl = getOutputEl(key);
+
+  es.onmessage = (event) => {
+    let msg;
+    try { msg = JSON.parse(event.data); } catch { return; }
+
+    if (msg.type === 'token') {
+      outputBuffers[key] += msg.text;
+      if (thinkMode === 'think' || key === '3-think') {
+        renderWithThinkTags(outputEl, outputBuffers[key]);
+      } else {
+        // Plain text — set textContent for performance, keep cursor
+        outputEl.textContent = outputBuffers[key];
+        appendCursor(outputEl);
+      }
+      outputEl.scrollTop = outputEl.scrollHeight;
+    } else if (msg.type === 'done') {
+      es.close();
+      delete runningStreams[key];
+      removeCursor(outputEl);
+      setRunning(key, false);
+      tryPrettifyJson(outputEl, outputBuffers[key]);
+      renderMetrics(key, msg.metrics, msg.runtime);
+    } else if (msg.type === 'cancelled') {
+      es.close();
+      delete runningStreams[key];
+      delete currentRunIds[key];
+      removeCursor(outputEl);
+      setRunning(key, false);
+    } else if (msg.type === 'error') {
+      es.close();
+      delete runningStreams[key];
+      delete currentRunIds[key];
+      removeCursor(outputEl);
+      setRunning(key, false);
+      showError(key, msg.message || 'Unknown error');
+    }
+  };
+
+  es.onerror = () => {
+    es.close();
+    delete runningStreams[key];
+    removeCursor(outputEl);
+    setRunning(key, false);
+    if (outputBuffers[key] === '') {
+      showError(key, 'Stream connection failed');
+    }
+  };
+}
+
+/* ══════════════════════════════════════════════════════════
+   RUN BOTH  (Demo 3)
+══════════════════════════════════════════════════════════ */
+function runBoth() {
+  runDemo(3, 'direct');
+  runDemo(3, 'think');
+}
+
+/* ══════════════════════════════════════════════════════════
+   KEYBOARD SHORTCUTS
+══════════════════════════════════════════════════════════ */
+document.addEventListener('keydown', (e) => {
+  const tag = e.target.tagName;
+  if (tag === 'TEXTAREA' || tag === 'INPUT') return;
+  if (e.target.closest('.output-area')) return;  // don't fire shortcuts when output is focused
+  if (e.key >= '1' && e.key <= '5') { switchDemo(parseInt(e.key)); return; }
+  if (e.key === 'r' || e.key === 'R') { runCurrentDemo(); return; }
+  if (e.key === 'd' || e.key === 'D') { clearCurrentOutput(); return; }
+});
+
+function runCurrentDemo() {
+  if (currentDemo === 3) {
+    runBoth();
+  } else {
+    runDemo(currentDemo);
+  }
+}
+
+function clearCurrentOutput() {
+  clearOutput(currentDemo);
+}
+
+/* ══════════════════════════════════════════════════════════
+   THINK TAG RENDERING
+══════════════════════════════════════════════════════════ */
+function renderWithThinkTags(container, text) {
+  container.innerHTML = '';
+  // State machine: parse <think>…</think> blocks
+  let i = 0;
+  let inThink = false;
+  const openTag = '<think>';
+  const closeTag = '</think>';
+
+  while (i < text.length) {
+    if (!inThink) {
+      const nextOpen = text.indexOf(openTag, i);
+      if (nextOpen === -1) {
+        // rest is normal text
+        if (i < text.length) {
+          container.appendChild(document.createTextNode(text.slice(i)));
+        }
+        break;
+      }
+      // normal text before <think>
+      if (nextOpen > i) {
+        container.appendChild(document.createTextNode(text.slice(i, nextOpen)));
+      }
+      i = nextOpen + openTag.length;
+      inThink = true;
+    } else {
+      const nextClose = text.indexOf(closeTag, i);
+      if (nextClose === -1) {
+        // think block not closed yet — render rest as think
+        const span = document.createElement('span');
+        span.className = 'output-think';
+        span.textContent = text.slice(i);
+        container.appendChild(span);
+        break;
+      }
+      // think content
+      const span = document.createElement('span');
+      span.className = 'output-think';
+      span.textContent = text.slice(i, nextClose);
+      container.appendChild(span);
+      i = nextClose + closeTag.length;
+      inThink = false;
+    }
+  }
+  appendCursor(container);
+}
+
+/* ══════════════════════════════════════════════════════════
+   METRICS
+══════════════════════════════════════════════════════════ */
+function tryPrettifyJson(el, text) {
+  if (!text) return;
+  // Strip markdown code fences if present
+  const stripped = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '').trim();
+  try {
+    const parsed = JSON.parse(stripped);
+    const pretty = JSON.stringify(parsed, null, 2);
+    // Syntax highlight: strings green, numbers cyan, keys purple, booleans/null orange
+    const highlighted = pretty
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+\.?\d*([eE][+-]?\d+)?)/g, (match) => {
+        if (/^"/.test(match)) {
+          if (/:$/.test(match)) return `<span style="color:#c792ea">${match}</span>`;  // key
+          return `<span style="color:#c3e88d">${match}</span>`;  // string value
+        }
+        if (/true|false/.test(match)) return `<span style="color:#f78c6c">${match}</span>`;
+        if (/null/.test(match)) return `<span style="color:#f78c6c">${match}</span>`;
+        return `<span style="color:#89ddff">${match}</span>`;  // number
+      });
+    el.innerHTML = highlighted;
+  } catch {
+    // Not valid JSON — leave output as-is
+  }
+}
+
+function renderMetrics(key, metrics, runtime) {
+  if (!metrics) return;
+  const metricsEl = document.getElementById('metrics-' + key);
+  const textEl = document.getElementById('metrics-text-' + key);
+  if (!metricsEl || !textEl) return;
+
+  const toks = metrics.gen_tps != null ? Math.round(metrics.gen_tps) : null;
+  const ttft = metrics.ttft_ms != null ? Math.round(metrics.ttft_ms) : null;
+  const total = metrics.total_s != null ? metrics.total_s.toFixed(1) : null;
+  const cost = '$0.00';
+
+  let parts = [];
+
+  if (runtime === 'mlx' || runtime === 'MLX') {
+    if (toks != null) parts.push(toks.toLocaleString() + ' tok/s');
+    if (ttft != null) parts.push('TTFT ' + ttft + 'ms');
+    if (total != null) parts.push(total + 's total');
+    if (metrics.ram_mb != null) parts.push('RAM ' + formatMem(metrics.ram_mb));
+    parts.push('Cost: ' + cost);
+  } else {
+    if (ttft != null) parts.push('TTFT ' + ttft + 'ms');
+    if (total != null) parts.push(total + 's total');
+    if (metrics.vram_mb != null) parts.push('VRAM ' + formatMem(metrics.vram_mb));
+    parts.push('Cost: ' + cost);
+  }
+
+  textEl.textContent = parts.join(' · ');
+  metricsEl.classList.add('visible');
+}
+
+function formatMem(mb) {
+  if (mb >= 1000) return (mb / 1000).toFixed(1) + ' GB';
+  return Math.round(mb) + ' MB';
+}
+
+/* ══════════════════════════════════════════════════════════
+   UI HELPERS
+══════════════════════════════════════════════════════════ */
+function getOutputEl(key) {
+  return document.getElementById('output-' + key);
+}
+
+function clearOutputEl(key) {
+  const el = getOutputEl(key);
+  if (el) el.innerHTML = '';
+  // Hide metrics + errors
+  const m = document.getElementById('metrics-' + key);
+  if (m) m.classList.remove('visible');
+  const e = document.getElementById('error-' + key);
+  if (e) { e.style.display = 'none'; e.textContent = ''; }
+}
+
+function clearOutput(demoId) {
+  if (demoId === 3) {
+    clearOutputEl('3-direct');
+    clearOutputEl('3-think');
+    outputBuffers['3-direct'] = '';
+    outputBuffers['3-think'] = '';
+  } else {
+    clearOutputEl(String(demoId));
+    outputBuffers[String(demoId)] = '';
+  }
+}
+
+function showError(key, msg) {
+  const e = document.getElementById('error-' + key);
+  if (!e) return;
+  e.textContent = '⚠ ' + msg;
+  e.style.display = 'block';
+}
+
+function setRunning(key, running) {
+  const btnIds = getBtnIds(key);
+  btnIds.forEach(btnId => {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    if (running) {
+      btn.disabled = false;
+      btn.innerHTML = '<span class="spinner"></span> Stop';
+      btn.classList.add('btn-stop');
+      btn.onclick = () => stopDemo(key);
+    } else {
+      btn.disabled = false;
+      btn.classList.remove('btn-stop');
+      btn.innerHTML = getBtnLabel(key);
+      // restore original onclick
+      const demoId = key.replace('-direct','').replace('-think','');
+      const thinkMode = key.includes('-direct') ? 'direct' : key.includes('-think') ? 'think' : null;
+      btn.onclick = thinkMode ? () => runDemo(demoId, thinkMode) : () => runDemo(demoId);
+    }
+  });
+}
+
+async function stopDemo(key) {
+  const runId = currentRunIds[key];
+  if (runId) {
+    await fetch('/api/cancel/' + runId, { method: 'POST' });
+    delete currentRunIds[key];
+  }
+  const es = runningStreams[key];
+  if (es) { es.close(); delete runningStreams[key]; }
+  const outputEl = getOutputEl(key);
+  if (outputEl) removeCursor(outputEl);
+  setRunning(key, false);
+}
+
+function getBtnIds(key) {
+  const map = {
+    '1': ['run-btn-1'],
+    '2': ['run-btn-2'],
+    '3-direct': ['run-btn-3-direct', 'run-both-btn'],
+    '3-think':  ['run-btn-3-think', 'run-both-btn'],
+    '4': ['run-btn-4'],
+    '5': ['run-btn-5'],
+  };
+  return map[key] || [];
+}
+
+function getBtnLabel(key) {
+  const map = {
+    '1': '<span>▶ Run</span>',
+    '2': '<span>▶ Run</span>',
+    '3-direct': '▶ Run Direct',
+    '3-think':  '▶ Run Think',
+    '4': '<span>▶ Run</span>',
+    '5': '<span>▶ Run</span>',
+  };
+  // For run-both-btn, check if either is still running
+  if (key === '3-direct' || key === '3-think') {
+    const bothBtn = document.getElementById('run-both-btn');
+    if (bothBtn && !runningStreams['3-direct'] && !runningStreams['3-think']) {
+      bothBtn.disabled = false;
+      bothBtn.textContent = '▶ Run Both';
+    }
+  }
+  return map[key] || '<span>▶ Run</span>';
+}
+
+function appendCursor(container) {
+  removeCursor(container);
+  const cur = document.createElement('span');
+  cur.className = 'output-cursor';
+  cur.id = 'cursor-' + container.id;
+  container.appendChild(cur);
+}
+
+function removeCursor(container) {
+  const old = container.querySelector('.output-cursor');
+  if (old) old.remove();
+}
+
+/* ══════════════════════════════════════════════════════════
+   FILE UPLOAD (Demo 2)
+══════════════════════════════════════════════════════════ */
+function handleFileSelect(event, demoId) {
+  const file = event.target.files[0];
+  if (file) setFile2(file);
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>

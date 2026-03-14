@@ -1,0 +1,14 @@
+node_modules/
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+demo_runner/assets/_tmp_*.png
+demo_runner/assets/uploaded.*
+.env
+*.log
+.agent/
+.agents/
+.claude/
+.playwright-mcp/
+.superpowers/
