@@ -143,6 +143,11 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "demos": DEMOS})
 
 
+@app.get("/demo/{demo_id}", response_class=HTMLResponse)
+async def demo_page(request: Request, demo_id: str):
+    return templates.TemplateResponse("index.html", {"request": request, "demos": DEMOS})
+
+
 @app.get("/api/demos")
 async def list_demos():
     return DEMOS

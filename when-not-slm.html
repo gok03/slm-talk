@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e;
+    color: #fff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    height: 100vh;
+    padding: 30px 44px 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .header { margin-bottom: 18px; }
+  .title {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  /* ── Two-column layout ── */
+  .columns {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    min-height: 0;
+  }
+
+  .col { display: flex; flex-direction: column; gap: 7px; }
+
+  .col-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* ── Cards ── */
+  .card {
+    display: flex;
+    gap: 14px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+
+  /* Red cards — left column */
+  .card-red {
+    background: rgba(239,68,68,0.03);
+    border: 1px solid rgba(239,68,68,0.10);
+  }
+  .card-red::before { background: linear-gradient(180deg, #ef4444, rgba(239,68,68,0.2)); }
+
+  /* Amber cards — right column */
+  .card-amber {
+    background: rgba(234,179,8,0.03);
+    border: 1px solid rgba(234,179,8,0.10);
+  }
+  .card-amber::before { background: linear-gradient(180deg, #eab308, rgba(234,179,8,0.2)); }
+
+  /* Card icon */
+  .card-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    margin-top: 1px;
+  }
+  .card-red .card-icon {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.12);
+  }
+  .card-amber .card-icon {
+    background: rgba(234,179,8,0.08);
+    border: 1px solid rgba(234,179,8,0.12);
+  }
+
+  /* Card text */
+  .card-body { flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .card-desc {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.55;
+  }
+  .card-desc .num {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .card-red .num { color: #f87171; }
+  .card-amber .num { color: #fbbf24; }
+  .card-source {
+    font-size: 7.5px;
+    color: rgba(255,255,255,0.12);
+    margin-top: 3px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Bottom mitigation bar ── */
+  .mitigations {
+    flex-shrink: 0;
+    margin-top: 14px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(16,185,129,0.04), rgba(96,165,250,0.03));
+    border: 1px solid rgba(16,185,129,0.12);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .mit-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #10b981;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .mit-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(16,185,129,0.12);
+    flex-shrink: 0;
+  }
+  .mit-items {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .mit-pill {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    padding: 4px 11px;
+    border-radius: 6px;
+    background: rgba(16,185,129,0.04);
+    border: 1px solid rgba(16,185,129,0.08);
+    white-space: nowrap;
+  }
+  .mit-pill strong {
+    color: rgba(255,255,255,0.6);
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title">When NOT to Use SLMs</div>
+  <div class="subtitle">Knowing the boundaries is what makes the architecture credible</div>
+</div>
+
+<div class="columns">
+
+  <!-- ═══ LEFT: Task categories that break SLMs ═══ -->
+  <div class="col">
+    <div class="col-label" style="color: #ef4444;">Don't Use SLMs For</div>
+
+    <div class="card card-red">
+      <div class="card-icon">🧠</div>
+      <div class="card-body">
+        <div class="card-title">Multi-Hop Reasoning</div>
+        <div class="card-desc">GPT-4 drops to <span class="num">41.6 EM</span> on 3–4 hop chains — SLMs fare far worse. Chaining inferences across documents collapses accuracy exponentially.</div>
+        <div class="card-source">MRKE Benchmark · arXiv:2402.11924</div>
+      </div>
+    </div>
+
+    <div class="card card-red">
+      <div class="card-icon">📏</div>
+      <div class="card-body">
+        <div class="card-title">Long Context (&gt;32K tokens)</div>
+        <div class="card-desc"><span class="num">11 of 12</span> models drop below 50% of short-context perf at 32K. Middle sections: only <span class="num">76–82%</span> accuracy. Effective context is <span class="num">10–20%</span> of advertised window.</div>
+        <div class="card-source">Context Rot · Chroma Research 2025</div>
+      </div>
+    </div>
+
+    <div class="card card-red">
+      <div class="card-icon">🌍</div>
+      <div class="card-body">
+        <div class="card-title">Broad World Knowledge</div>
+        <div class="card-desc">MMLU gap: <span class="num">3B → 74</span> vs <span class="num">70B+ → 90+</span> (16-pt gap). No model exceeds <span class="num">70%</span> on the FACTS factuality suite — SLMs average ~60%.</div>
+        <div class="card-source">Qwen 2.5 Blog · FACTS Benchmark, DeepMind 2025</div>
+      </div>
+    </div>
+
+    <div class="card card-red">
+      <div class="card-icon">💻</div>
+      <div class="card-body">
+        <div class="card-title">Complex Code Generation</div>
+        <div class="card-desc">Gemma 3 4B: <span class="num">71% HumanEval</span> vs 90%+ frontier. Self-invoking, multi-function code diverges sharply. <span class="num">4× VRAM</span> needed for every 10% quality gain.</div>
+        <div class="card-source">HumanEval Pro · ACL 2025 · arXiv:2507.03160</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT: Production failure modes ═══ -->
+  <div class="col">
+    <div class="col-label" style="color: #eab308;">Production Failure Modes</div>
+
+    <div class="card card-amber">
+      <div class="card-icon">🎭</div>
+      <div class="card-body">
+        <div class="card-title">Hallucination Amplification</div>
+        <div class="card-desc">Distilled SLMs: <span class="num">&gt;80% hallucination rate</span> vs ~50% for GPT-4o. Valid JSON, wrong content. CoT prompting cuts rate from <span class="num">38% → 18%</span>.</div>
+        <div class="card-source">PMC Survey on LLM Hallucinations · 2025</div>
+      </div>
+    </div>
+
+    <div class="card card-amber">
+      <div class="card-icon">📊</div>
+      <div class="card-body">
+        <div class="card-title">Confidence Blindness</div>
+        <div class="card-desc">Smaller models show the <span class="num">Dunning-Kruger effect</span> — poorly performing models display markedly higher overconfidence. Structured choices yield <span class="num">460% accuracy boost</span>.</div>
+        <div class="card-source">Mind the Confidence Gap · OpenReview 2025</div>
+      </div>
+    </div>
+
+    <div class="card card-amber">
+      <div class="card-icon">📉</div>
+      <div class="card-body">
+        <div class="card-title">Format &amp; Output Drift</div>
+        <div class="card-desc">Mixtral: <span class="num">31% inconsistency</span> in instruction adherence over long outputs. SLMs lose structure faster — distribution drift in hidden states compounds with length.</div>
+        <div class="card-source">LLM Performance Drift Monitoring · 2025</div>
+      </div>
+    </div>
+
+    <div class="card card-amber">
+      <div class="card-icon">🔄</div>
+      <div class="card-body">
+        <div class="card-title">Domain Shift Collapse</div>
+        <div class="card-desc">Fine-tuned SLMs are <span class="num">highly brittle</span> to distribution shifts. Works on test data, fails in production. Catastrophic forgetting is the <span class="num">#1 deployment failure</span>.</div>
+        <div class="card-source">KILO · arXiv:2508.03571 · LLM Failure Taxonomy 2025</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Mitigation bar ── -->
+<div class="mitigations">
+  <div class="mit-label">Mitigations</div>
+  <div class="mit-divider"></div>
+  <div class="mit-items">
+    <div class="mit-pill"><strong>Constrained decoding</strong> — enforce schema</div>
+    <div class="mit-pill"><strong>Verifier chain</strong> — 1B validates 3B</div>
+    <div class="mit-pill"><strong>RAG</strong> — retrieval over recall</div>
+    <div class="mit-pill"><strong>Cascade</strong> — escalate to LLM</div>
+    <div class="mit-pill"><strong>Fine-tune</strong> — narrow domain</div>
+  </div>
+</div>
+
+</body>
+</html>

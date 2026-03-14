@@ -135,33 +135,33 @@ The Ferrari vs Civic analogy. Most production tasks are the Civic — reliable, 
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">What You'll Get From This Talk</div>
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">What We'll Cover</div>
 
 <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px;">
 
 <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 8px; background: linear-gradient(90deg, rgba(239,68,68,0.08), transparent); border-left: 2px solid rgba(239,68,68,0.5);">
-  <mdi-alert-circle style="font-size: 24px; color: #ef4444; flex-shrink: 0;" />
-  <div style="color: rgba(255,255,255,0.75); font-size: 14px;">The problem: why **"bigger" isn't always "better"** in production</div>
+  <div style="font-size: 11px; font-weight: 800; color: #ef4444; letter-spacing: 1px; flex-shrink: 0; width: 50px;">01</div>
+  <div><div style="color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 700;">The Problem</div><div style="color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 2px;">Why "bigger" isn't always "better" in production</div></div>
 </div>
 
 <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 8px; background: linear-gradient(90deg, rgba(249,115,22,0.08), transparent); border-left: 2px solid rgba(249,115,22,0.5);">
-  <mdi-trending-up style="font-size: 24px; color: #f97316; flex-shrink: 0;" />
-  <div style="color: rgba(255,255,255,0.75); font-size: 14px;">Rise of SLMs: **what counts as small** and what changed in the ecosystem</div>
+  <div style="font-size: 11px; font-weight: 800; color: #f97316; letter-spacing: 1px; flex-shrink: 0; width: 50px;">02</div>
+  <div><div style="color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 700;">Rise of Small Language Models</div><div style="color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 2px;">What changed in the ecosystem</div></div>
 </div>
 
 <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 8px; background: linear-gradient(90deg, rgba(16,185,129,0.08), transparent); border-left: 2px solid rgba(16,185,129,0.5);">
-  <mdi-arrow-decision style="font-size: 24px; color: #10b981; flex-shrink: 0;" />
-  <div style="color: rgba(255,255,255,0.75); font-size: 14px;">3 paths to small: **quantization, distillation, purpose-built** models</div>
+  <div style="font-size: 11px; font-weight: 800; color: #10b981; letter-spacing: 1px; flex-shrink: 0; width: 50px;">03</div>
+  <div><div style="color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 700;">Demo Time</div><div style="color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 2px;">SLMs doing real work — code gen, PDF parsing, JSON extraction, RPA vision</div></div>
 </div>
 
 <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 8px; background: linear-gradient(90deg, rgba(234,179,8,0.08), transparent); border-left: 2px solid rgba(234,179,8,0.5);">
-  <mdi-play-circle style="font-size: 24px; color: #eab308; flex-shrink: 0;" />
-  <div style="color: rgba(255,255,255,0.75); font-size: 14px;">**Live demos** + metrics: code gen, PDF parsing, JSON extraction, RPA vision</div>
+  <div style="font-size: 11px; font-weight: 800; color: #eab308; letter-spacing: 1px; flex-shrink: 0; width: 50px;">04</div>
+  <div><div style="color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 700;">SLM-First Architecture</div><div style="color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 2px;">The cascade pattern — agentic, enterprise, and pipeline design</div></div>
 </div>
 
 <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 8px; background: linear-gradient(90deg, rgba(139,92,246,0.08), transparent); border-left: 2px solid rgba(139,92,246,0.5);">
-  <mdi-shield-check style="font-size: 24px; color: #8b5cf6; flex-shrink: 0;" />
-  <div style="color: rgba(255,255,255,0.75); font-size: 14px;">When **not** to use SLMs + the future of **cascades & composability**</div>
+  <div style="font-size: 11px; font-weight: 800; color: #8b5cf6; letter-spacing: 1px; flex-shrink: 0; width: 50px;">05</div>
+  <div><div style="color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 700;">Sharp Edges & When NOT to Use SLMs</div><div style="color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 2px;">Limitations, failure modes, and the future of cascades</div></div>
 </div>
 
 </div>
@@ -305,134 +305,6 @@ Privacy: LayerX Enterprise AI Security Report 2025 — 77% paste company data, 8
 Reliability: Han et al. 2023 / JSONSchemaBench 2025 — ~12% invalid JSON for complex schemas (GPT-4, NeurIPS). Basic: 70-90% conformance, with constrained decoding: 95-99%.
 The opportunity: Handle 90% of tasks locally and cheaply — escalate only the hard 10%.
 -->
-
----
-
-# LLMs Are Stateless by Design
-
-<div class="grid grid-cols-2 gap-8 mt-2">
-<div class="flex flex-col gap-4">
-
-<div class="p-4 rounded-xl" style="background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.25);">
-  <p class="font-medium text-sm mb-1">Every API call is a cold start</p>
-  <p class="text-xs text-gray-400 leading-relaxed">No memory of last session, last user, last outcome. The model that just helped your user onboard won't remember them in 10 minutes. Memory is your problem, not the model's.</p>
-</div>
-
-<div class="p-4 rounded-xl" style="background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.25);">
-  <p class="font-medium text-sm mb-1">Workarounds are expensive by design</p>
-  <p class="text-xs text-gray-400 leading-relaxed">Mem0, MemGPT, LangChain memory — all re-inject state into the context window on every call. By turn 10, you're paying for 10K+ tokens of history even if the reply is two sentences. Context cost scales quadratically with length.</p>
-  <div class="flex gap-2 mt-2 flex-wrap">
-    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(99,102,241,0.12); color: #a5b4fc;">Mem0</span>
-    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(99,102,241,0.12); color: #a5b4fc;">MemGPT</span>
-    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(99,102,241,0.12); color: #a5b4fc;">LangChain Memory</span>
-  </div>
-</div>
-
-<div class="p-4 rounded-xl" style="background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.25);">
-  <p class="font-medium text-sm mb-1">Long context ≠ good memory</p>
-  <p class="text-xs text-gray-400 leading-relaxed">Models demonstrably miss information buried in the middle of long contexts — even when it's technically present. Flawed memories get replayed and compounded, degrading agent performance over time.</p>
-  <span class="text-xs px-2 py-0.5 rounded-full mt-2 inline-block" style="background: rgba(99,102,241,0.12); color: #a5b4fc;">"Lost in the middle" — Liu et al., 2024</span>
-</div>
-
-</div>
-
-<div class="flex flex-col gap-4 mt-1">
-
-<div class="p-4 rounded-xl" style="background: rgba(15,110,86,0.07); border: 1px solid rgba(15,110,86,0.25);">
-  <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: #6ee7b7;">With SLM</p>
-  <div class="flex flex-col gap-2">
-    <div class="flex items-start gap-2">
-      <span style="color: #6ee7b7;" class="text-xs mt-0.5">✓</span>
-      <p class="text-xs text-gray-300 leading-relaxed">You own the process — control the KV cache, session state, and memory store directly</p>
-    </div>
-    <div class="flex items-start gap-2">
-      <span style="color: #6ee7b7;" class="text-xs mt-0.5">✓</span>
-      <p class="text-xs text-gray-300 leading-relaxed">State is a first-class citizen — not an API bolt-on charged per token</p>
-    </div>
-    <div class="flex items-start gap-2">
-      <span style="color: #6ee7b7;" class="text-xs mt-0.5">✓</span>
-      <p class="text-xs text-gray-300 leading-relaxed">Persist state across sessions with zero per-token billing — flat infra cost</p>
-    </div>
-  </div>
-</div>
-
-<div class="p-5 rounded-xl" style="background: rgba(220,60,60,0.07); border: 1px solid rgba(220,60,60,0.25);">
-  <span class="text-xs font-semibold uppercase tracking-widest" style="color: #f87171;">The real cost</span>
-  <p class="mt-2 text-sm leading-relaxed text-gray-300">Re-submitting a 100K-token history on every turn accumulates fast. Prompt caching gives a 90% discount on cached prefix — but each new turn still pays for the uncached delta. <strong class="text-white">For long-running agents, frontier LLMs lose the cost battle as session depth grows.</strong></p>
-  <p class="text-[10px] mt-2 text-gray-500">arxiv:2603.04814, March 2026</p>
-</div>
-
-</div>
-</div>
-
----
-
-# You Can't Observe What You Can't Run
-
-<div class="grid grid-cols-2 gap-8 mt-2">
-<div class="flex flex-col gap-4">
-
-<div class="p-4 rounded-xl" style="background: rgba(249,115,22,0.07); border: 1px solid rgba(249,115,22,0.25);">
-  <div class="flex justify-between items-start">
-    <div>
-      <p class="font-medium text-sm mb-1">A frontier LLM is a black box with a price tag</p>
-      <p class="text-xs text-gray-400 leading-relaxed">Tokens in, tokens out. No access to attention weights, activations, confidence scores, or intermediate representations. Debugging a failure means prompt archaeology.</p>
-    </div>
-    <div class="text-right ml-4 shrink-0">
-      <div class="text-2xl font-medium" style="color: #f97316;">0</div>
-      <div class="text-[10px] text-gray-500 leading-tight">layers you<br>can inspect</div>
-    </div>
-  </div>
-</div>
-
-<div class="p-4 rounded-xl" style="background: rgba(249,115,22,0.07); border: 1px solid rgba(249,115,22,0.25);">
-  <p class="font-medium text-sm mb-1">No architecture-level control</p>
-  <p class="text-xs text-gray-400 leading-relaxed">You can't add task-specific output heads, apply constrained decoding at the model level, customise tokenisation, or attach confidence thresholds. You're working with what the provider shipped.</p>
-  <div class="flex gap-2 mt-2 flex-wrap">
-    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(249,115,22,0.12); color: #fdba74;">No output heads</span>
-    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(249,115,22,0.12); color: #fdba74;">No constrained decoding</span>
-    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(249,115,22,0.12); color: #fdba74;">No confidence scores</span>
-  </div>
-</div>
-
-<div class="p-4 rounded-xl" style="background: rgba(249,115,22,0.07); border: 1px solid rgba(249,115,22,0.25);">
-  <p class="font-medium text-sm mb-1">"The model said so" is not an audit trail</p>
-  <p class="text-xs text-gray-400 leading-relaxed">Healthcare, finance, and legal require explainability. Regulators don't accept opaque AI outputs. EU AI Act 2025 classifies many domain AI applications as high-risk — mandating transparency, traceability, and human oversight.</p>
-  <span class="text-xs px-2 py-0.5 rounded-full mt-2 inline-block" style="background: rgba(249,115,22,0.12); color: #fdba74;">EU AI Act · 7% global revenue fine for non-compliance</span>
-</div>
-
-</div>
-
-<div class="flex flex-col gap-4 mt-1">
-
-<div class="p-4 rounded-xl" style="background: rgba(15,110,86,0.07); border: 1px solid rgba(15,110,86,0.25);">
-  <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: #6ee7b7;">With SLM — open weights = full observability</p>
-  <div class="flex flex-col gap-2">
-    <div class="flex items-start gap-2">
-      <span style="color: #6ee7b7;" class="text-xs mt-0.5">✓</span>
-      <p class="text-xs text-gray-300 leading-relaxed">Inspect activations and attention — understand <em>why</em> the model produced an output</p>
-    </div>
-    <div class="flex items-start gap-2">
-      <span style="color: #6ee7b7;" class="text-xs mt-0.5">✓</span>
-      <p class="text-xs text-gray-300 leading-relaxed">Constrained decoding with XGrammar / Outlines / vLLM — 95–99% schema conformance</p>
-    </div>
-    <div class="flex items-start gap-2">
-      <span style="color: #6ee7b7;" class="text-xs mt-0.5">✓</span>
-      <p class="text-xs text-gray-300 leading-relaxed">Add task-specific output heads, confidence thresholds, and custom tokenisation</p>
-    </div>
-    <div class="flex items-start gap-2">
-      <span style="color: #6ee7b7;" class="text-xs mt-0.5">✓</span>
-      <p class="text-xs text-gray-300 leading-relaxed">Deterministic evals at the layer level — write tests the way you write unit tests</p>
-    </div>
-  </div>
-</div>
-
-<div class="p-4 rounded-xl text-center" style="background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.2);">
-  <p class="text-sm text-gray-300 leading-relaxed">You wouldn't ship a microservice you can't profile.<br><strong class="text-white">Why are you shipping AI you can't inspect?</strong></p>
-</div>
-
-</div>
-</div>
 
 ---
 
@@ -709,13 +581,13 @@ zoom: 0.55
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-top: 16px;">
 
 <div style="padding: 14px; border-radius: 8px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); text-align: center;">
-  <div style="font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">100M – 7B</div>
+  <div style="font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">100M – 15B</div>
   <div style="font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px;">parameters</div>
   <div style="font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px;">Fits on phone, laptop, or edge device</div>
 </div>
 
 <div style="padding: 14px; border-radius: 8px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); text-align: center;">
-  <div style="font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">~600MB–1.5GB</div>
+  <div style="font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">~600MB–7GB</div>
   <div style="font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px;">memory (4-bit quantized)</div>
   <div style="font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px;">0.5B → 600MB, 3B → 1.5GB</div>
 </div>
@@ -727,9 +599,9 @@ zoom: 0.55
 </div>
 
 <div style="padding: 14px; border-radius: 8px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); text-align: center;">
-  <div style="font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">No cloud</div>
-  <div style="font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px;">needed</div>
-  <div style="font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px;">CPU, single GPU, or mobile chip</div>
+  <div style="font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Minimal infra</div>
+  <div style="font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px;">to get started</div>
+  <div style="font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px;">CPU, single GPU, or cloud at 15× less cost</div>
 </div>
 
 </div>
@@ -755,6 +627,48 @@ Sources (as of March 2026):
 - SmolLM3 (Feb 2026): 3B trained on 11.2T tokens. AIME 2025: 36.7% with thinking mode. IFEval: 76.7% (best in 3B class). 128K context.
 - Phi-4 Mini (Mar 2025): 3.8B, 128K context, MIT license. GSM8K: 88.6%, MATH: 64.0%, function calling support. Trained on 5T tokens.
 - Key trend: thinking/reasoning mode now standard even at sub-1B. Selective parameter activation (Gemma 3n) redefines "small".
+-->
+
+---
+
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Benchmarks vs Reality — SLMs Closing the Gap</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 4px; font-size: 14px;">
+<div>
+
+**On Paper**
+
+- **Cost**: Qwen 3.5 9B reaches **91%** of GPT-5.4's reasoning score while costing literally **$0** to run
+- **Size**: Gemma 3n fits in **3 GB RAM** on a phone — e.g., on-device text summarization that once required an A100 GPU
+- **Speed**: SLMs respond in under **200ms** locally, making them **5× faster** than any cloud API call
+
+</div>
+<div v-click>
+
+**In Production**
+
+- SLMs still struggle with **multi-step reasoning** and long context
+- LLMs maintain the lead on **open-ended generation** and nuance
+- SLMs **excel** at structured tasks like extraction and JSON output
+
+</div>
+</div>
+
+<div style="margin-top: 6px; font-size: 12px;">
+
+| Metric | GPT-5.4 | Qwen 3.5 (9B) | Gemma 3n (E4B) | SmolLM3 (3B) |
+|--------|---------|---------------|----------------|--------------|
+| MMLU <span style="font-size:9px; color:rgba(255,255,255,0.35);">(general knowledge)</span> | ~92% | ~85% | 64.9% | 68.9% |
+| GPQA <span style="font-size:9px; color:rgba(255,255,255,0.35);">(graduate-level reasoning)</span> | 92% | 81.7% | — | — |
+| Latency p50 <span style="font-size:9px; color:rgba(255,255,255,0.35);">(median response time)</span> | 1.0s | 0.3s | 0.2s | 0.2s |
+| Cost / 1M tokens <span style="font-size:9px; color:rgba(255,255,255,0.35);">(input / output)</span> | $2.50 / $15 | $0.00 | $0.00 | $0.00 |
+
+<span style="font-size: 9px; color: rgba(255,255,255,0.3);">Sources: Qwen Technical Report (2025) · Google Gemma 3n Blog · HuggingFace SmolLM3 · LMArena Leaderboard</span>
+
+</div>
+
+<!--
+SLMs close the gap on benchmarks, but real-world fit depends on task complexity. For narrow structured work they're already good enough — at zero cost.
 -->
 
 ---
@@ -813,228 +727,8 @@ Three paths — the audience should know which one fits their use case.
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Benchmarks vs Reality — SLMs Closing the Gap</div>
-
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 4px; font-size: 14px;">
-<div>
-
-**On Paper**
-
-- **Cost**: Qwen 3.5 9B reaches **91%** of GPT-5.4's reasoning score while costing literally **$0** to run
-- **Size**: Gemma 3n fits in **3 GB RAM** on a phone — e.g., on-device text summarization that once required an A100 GPU
-- **Speed**: SLMs respond in under **200ms** locally, making them **5× faster** than any cloud API call
-
-</div>
-<div v-click>
-
-**In Production**
-
-- SLMs still struggle with **multi-step reasoning** and long context
-- LLMs maintain the lead on **open-ended generation** and nuance
-- SLMs **excel** at structured tasks like extraction and JSON output
-
-</div>
-</div>
-
-<div style="margin-top: 6px; font-size: 12px;">
-
-| Metric | GPT-5.4 | Qwen 3.5 (9B) | Gemma 3n (E4B) | SmolLM3 (3B) |
-|--------|---------|---------------|----------------|--------------|
-| MMLU <span style="font-size:9px; color:rgba(255,255,255,0.35);">(general knowledge)</span> | ~92% | ~85% | 64.9% | 68.9% |
-| GPQA <span style="font-size:9px; color:rgba(255,255,255,0.35);">(graduate-level reasoning)</span> | 92% | 81.7% | — | — |
-| Latency p50 <span style="font-size:9px; color:rgba(255,255,255,0.35);">(median response time)</span> | 1.0s | 0.3s | 0.2s | 0.2s |
-| Cost / 1M tokens <span style="font-size:9px; color:rgba(255,255,255,0.35);">(input / output)</span> | $2.50 / $15 | $0.00 | $0.00 | $0.00 |
-
-<span style="font-size: 9px; color: rgba(255,255,255,0.3);">Sources: Qwen Technical Report (2025) · Google Gemma 3n Blog · HuggingFace SmolLM3 · LMArena Leaderboard</span>
-
-</div>
-
-<!--
-SLMs close the gap on benchmarks, but real-world fit depends on task complexity. For narrow structured work they're already good enough — at zero cost.
--->
-
----
-
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-  <div style="font-size: 32px; font-weight: 800; color: rgba(255,255,255,0.9); letter-spacing: -0.5px;">How to Get the Best of SLM?</div>
-  <div style="width: 40px; height: 2px; background: linear-gradient(90deg, #f97316, #eab308); margin-top: 14px; border-radius: 1px;"></div>
-</div>
-
----
-
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
   <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 4px; color: rgba(249,115,22,0.5); margin-bottom: 12px;">Part 03</div>
-  <div style="font-size: 32px; font-weight: 800; color: rgba(255,255,255,0.9); letter-spacing: -0.5px;">SLM-First Architecture</div>
-  <div style="width: 40px; height: 2px; background: linear-gradient(90deg, #f97316, #eab308); margin-top: 14px; border-radius: 1px;"></div>
-  <div style="color: rgba(255,255,255,0.3); font-size: 14px; margin-top: 12px;">The Cascade Pattern</div>
-</div>
-
----
-
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Agentic SLM Architecture</div>
-<div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">Plan-and-Execute pattern · Heterogeneous model fleet · LangGraph orchestration</div>
-
-<div style="display: flex; gap: 16px; margin-top: 8px; align-items: stretch;">
-
-<div style="flex: 5; display: flex; flex-direction: column; gap: 0; align-items: center;">
-
-<!-- Supervisor -->
-<div style="padding: 10px 20px; border-radius: 8px; background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(249,115,22,0.05)); border: 1px solid rgba(139,92,246,0.3); text-align: center; width: 100%; position: relative;">
-<div style="background: linear-gradient(135deg, #8b5cf6, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 13px; letter-spacing: 1px;">SUPERVISOR</div>
-<div style="color: rgba(255,255,255,0.4); font-size: 8px; margin-top: 2px;">Qwen 3.5 14B / Phi-4 14B</div>
-<div style="color: rgba(255,255,255,0.2); font-size: 7px; margin-top: 1px;">Plans steps · Routes to workers · Re-plans on failure</div>
-</div>
-
-<!-- A2A label + connectors -->
-<div style="display: flex; width: 100%; justify-content: space-around; position: relative; height: 20px;">
-<div style="width: 1px; height: 20px; background: linear-gradient(to bottom, rgba(139,92,246,0.4), rgba(16,185,129,0.4));"></div>
-<div style="width: 1px; height: 20px; background: linear-gradient(to bottom, rgba(139,92,246,0.4), rgba(16,185,129,0.4));"></div>
-<div style="width: 1px; height: 20px; background: linear-gradient(to bottom, rgba(139,92,246,0.4), rgba(16,185,129,0.4));"></div>
-<div style="width: 1px; height: 20px; background: linear-gradient(to bottom, rgba(139,92,246,0.4), rgba(239,68,68,0.4));"></div>
-<div style="position: absolute; top: 6px; left: 50%; transform: translateX(-50%); font-size: 7px; color: rgba(96,165,250,0.4); letter-spacing: 2px; font-weight: 700;">A2A HANDOFF</div>
-</div>
-
-<!-- Workers row -->
-<div style="display: flex; gap: 5px; width: 100%;">
-<div style="flex: 1; padding: 8px 4px; border-radius: 6px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); text-align: center;">
-<div style="color: #10b981; font-weight: 800; font-size: 11px;">CLASSIFY</div>
-<div style="color: rgba(255,255,255,0.3); font-size: 7px; margin-top: 1px;">SmolLM2</div>
-<div style="color: rgba(255,255,255,0.15); font-size: 6px;">360M</div>
-</div>
-<div style="flex: 1; padding: 8px 4px; border-radius: 6px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); text-align: center;">
-<div style="color: #10b981; font-weight: 800; font-size: 11px;">EXTRACT</div>
-<div style="color: rgba(255,255,255,0.3); font-size: 7px; margin-top: 1px;">Phi-4 Mini</div>
-<div style="color: rgba(255,255,255,0.15); font-size: 6px;">3.8B</div>
-</div>
-<div style="flex: 1; padding: 8px 4px; border-radius: 6px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); text-align: center;">
-<div style="color: #10b981; font-weight: 800; font-size: 11px;">TOOL-CALL</div>
-<div style="color: rgba(255,255,255,0.3); font-size: 7px; margin-top: 1px;">Qwen 3.5</div>
-<div style="color: rgba(255,255,255,0.15); font-size: 6px;">0.8B</div>
-</div>
-<div style="flex: 1; padding: 8px 4px; border-radius: 6px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.25); text-align: center;">
-<div style="color: #ef4444; font-weight: 800; font-size: 11px;">VERIFY</div>
-<div style="color: rgba(255,255,255,0.3); font-size: 7px; margin-top: 1px;">SmolLM3</div>
-<div style="color: rgba(255,255,255,0.15); font-size: 6px;">1B</div>
-</div>
-</div>
-
-<!-- MCP label + connectors -->
-<div style="display: flex; width: 100%; justify-content: space-around; position: relative; height: 16px;">
-<div style="width: 1px; height: 16px; background: rgba(249,115,22,0.3);"></div>
-<div style="width: 1px; height: 16px; background: rgba(249,115,22,0.3);"></div>
-<div style="position: absolute; top: 3px; left: 50%; transform: translateX(-50%); font-size: 7px; color: rgba(249,115,22,0.35); letter-spacing: 2px; font-weight: 700;">MCP</div>
-</div>
-
-<!-- Infrastructure row -->
-<div style="display: flex; gap: 5px; width: 100%;">
-<div style="flex: 1; padding: 7px 10px; border-radius: 6px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); text-align: center;">
-<div style="background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; font-size: 9px;">MCP SERVERS</div>
-<div style="color: rgba(255,255,255,0.2); font-size: 6px; margin-top: 1px;">DB · API · Files · Search</div>
-</div>
-<div style="flex: 1; padding: 7px 10px; border-radius: 6px; background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.15); text-align: center;">
-<div style="background: linear-gradient(135deg, #eab308, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; font-size: 9px;">BLACKBOARD STATE</div>
-<div style="color: rgba(255,255,255,0.2); font-size: 6px; margin-top: 1px;">Mem0 · Redis · VectorDB</div>
-</div>
-</div>
-
-</div>
-
-<!-- Right side: key insights -->
-<div style="flex: 4; font-size: 11px; display: flex; flex-direction: column; justify-content: center; gap: 10px; border-left: 1px solid rgba(255,255,255,0.06); padding-left: 16px;">
-
-<div>
-<div style="color: #10b981; font-weight: 700; font-size: 9px; letter-spacing: 1px; margin-bottom: 3px;">WHY THIS WORKS</div>
-<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;">A fine-tuned <strong style="color: rgba(255,255,255,0.8);">350M model beat ChatGPT</strong> on tool-calling (77.5% vs 26%). Workers don't need to be big — they need to be <strong style="color: rgba(255,255,255,0.8);">scoped and fine-tuned</strong>.</div>
-</div>
-
-<div>
-<div style="color: #ef4444; font-weight: 700; font-size: 9px; letter-spacing: 1px; margin-bottom: 3px;">VERIFY WITH LESS</div>
-<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;">Verification needs <strong style="color: rgba(255,255,255,0.8);">less reasoning than generation</strong>. A 1B model can reliably validate a 3B model's output — cheaper than re-running the task.</div>
-</div>
-
-<div>
-<div style="color: #eab308; font-weight: 700; font-size: 9px; letter-spacing: 1px; margin-bottom: 3px;">COORDINATE, DON'T COPY</div>
-<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;"><strong style="color: rgba(255,255,255,0.8);">79% of failures</strong> are coordination issues. Blackboard pattern with Mem0 cuts p95 latency by <strong style="color: rgba(255,255,255,0.8);">91%</strong> and tokens by <strong style="color: rgba(255,255,255,0.8);">90%+</strong> versus passing full context.</div>
-</div>
-
-</div>
-
-</div>
-
-<div style="margin-top: 6px; display: flex; gap: 14px; justify-content: center;">
-<div style="display: flex; align-items: center; gap: 4px;"><div style="width: 5px; height: 5px; border-radius: 50%; background: #8b5cf6;"></div><span style="font-size: 8px; color: rgba(255,255,255,0.25);">Supervisor plans</span></div>
-<div style="display: flex; align-items: center; gap: 4px;"><div style="width: 5px; height: 5px; border-radius: 50%; background: #10b981;"></div><span style="font-size: 8px; color: rgba(255,255,255,0.25);">SLM workers execute</span></div>
-<div style="display: flex; align-items: center; gap: 4px;"><div style="width: 5px; height: 5px; border-radius: 50%; background: #ef4444;"></div><span style="font-size: 8px; color: rgba(255,255,255,0.25);">SLM verifies</span></div>
-<div style="display: flex; align-items: center; gap: 4px;"><div style="width: 5px; height: 5px; border-radius: 50%; background: #60a5fa;"></div><span style="font-size: 8px; color: rgba(255,255,255,0.25);">A2A between agents</span></div>
-<div style="display: flex; align-items: center; gap: 4px;"><div style="width: 5px; height: 5px; border-radius: 50%; background: #f97316;"></div><span style="font-size: 8px; color: rgba(255,255,255,0.25);">MCP for tools</span></div>
-</div>
-
-<!--
-Agentic SLM architecture based on production research:
-- Plan-and-Execute with heterogeneous model fleet (LangChain recommended)
-- 350M tool-calling beat ChatGPT (AWS, arXiv:2512.15943)
-- Verification threshold < generation (MAS-ProVe, arXiv:2602.03053)
-- 79% failures from coordination (MAST, NeurIPS 2025)
-- Mem0 91% latency cut (arXiv:2504.19413)
-- A2A for agent communication, MCP for tool access (Google + Anthropic)
--->
-
----
-
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Real-World Use Cases for SLMs</div>
-
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-
-<div v-click style="padding: 16px; border-radius: 8px; background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.12);">
-
-### Regulated Domains
-
-- **Medical**: PII stays on-device, HIPAA compliance
-- **Banking**: Transaction classification, fraud signals
-- Tighter governance = highest selling point for SLMs
-
-</div>
-
-<div v-click style="padding: 16px; border-radius: 8px; background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.12);">
-
-### RAG Pipelines
-
-- Query classification before retrieval
-- Chunk relevance scoring
-- Answer extraction from retrieved context
-
-</div>
-
-<div v-click style="padding: 16px; border-radius: 8px; background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.12);">
-
-### Document Processing
-
-- Invoice / receipt field extraction
-- Form parsing and validation
-- PDF → structured JSON
-
-</div>
-
-<div v-click style="padding: 16px; border-radius: 8px; background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.12);">
-
-### RPA & Automation
-
-- Screen element extraction (vision models)
-- Intent routing for workflow bots
-- Tool selection / function calling
-
-</div>
-
-</div>
-
-<!--
-Two of the largest regulated domains — medical and banking. Privacy is the killer feature.
--->
-
----
-
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-  <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 4px; color: rgba(249,115,22,0.5); margin-bottom: 12px;">Part 04</div>
   <div style="font-size: 32px; font-weight: 800; color: rgba(255,255,255,0.9); letter-spacing: -0.5px;">Demo Time</div>
   <div style="width: 40px; height: 2px; background: linear-gradient(90deg, #f97316, #eab308); margin-top: 14px; border-radius: 1px;"></div>
   <div style="color: rgba(255,255,255,0.3); font-size: 14px; margin-top: 12px;">SLMs Doing Real Work</div>
@@ -1042,32 +736,50 @@ Two of the largest regulated domains — medical and banking. Privacy is the kil
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 1: Code Generation</div>
+<iframe src="http://localhost:8000/demo/1" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
+
+---
+
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 1: JSON Parsing</div>
+<div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">NuExtract-2.0-2B · Ollama · Template-guided extraction</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
 <div>
 
-### Task
-Generate a simple website with a local SLM
-
-### What to watch
-- Speed of generation on CPU
-- Quality of output
-- No cloud API calls
+### What happens
+Feed an invoice text, get clean JSON back — no prompt engineering needed.
 
 ### Model
-Qwen 2.5 Coder (3B, Q4)
+**NuExtract-2.0-2B** — fine-tuned for structured extraction using a template schema. Just define the shape, get the data.
+
+### Why this model
+- Template-driven: you define the JSON shape, it fills it
+- 2B params, runs locally via Ollama
+- Cloud equivalent: GPT-4o ~$0.02/call
 
 </div>
 <div>
 
-### Metrics We'll Track
+### Live Input → Output
+
+**Template:**
+```json
+{"invoice_number": "", "date": "",
+ "company": "", "line_items": [
+   {"name": "", "quantity": 0, "unit_price": 0}
+ ], "tax_rate": 0}
+```
+
+**Output:** structured JSON with all fields populated from raw invoice text — invoice number, line items, tax rate, all extracted in one pass.
 
 | Metric | Value |
 |--------|-------|
-| Model | Qwen 2.5 Coder 3B |
-| Quantization | Q4_K_M |
-| Hardware | CPU only |
+| Runtime | Ollama |
+| Size | 2B |
 | Latency | *live* |
 | Cost | $0.00 |
 
@@ -1075,171 +787,239 @@ Qwen 2.5 Coder (3B, Q4)
 </div>
 
 <!--
-LIVE DEMO: Open Antigravity / chat interface. Generate a simple website. Show it works.
-Then show a slightly more complex task.
+LIVE DEMO: Run via demo_runner UI. Show template → JSON extraction. Emphasize no prompt engineering.
 -->
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 2: PDF Parsing</div>
+<iframe src="http://localhost:8000/demo/2" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
+
+---
+
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 2: PDF Extraction</div>
+<div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">PaddleOCR-VL-1.5 · MLX-VLM · Vision-language OCR</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
 <div>
 
-### Task
-Extract structured data from messy real-world PDFs
-
-### The Challenge
-- Inconsistent formatting
-- Tables, headers, mixed content
-- Need reliable JSON output
+### What happens
+Feed a PDF image, get structured text — tables, headers, formatting all preserved.
 
 ### Model
-Phi-3.5 Mini (3.8B, Q4)
+**PaddleOCR-VL-1.5** (0.9B) — a vision-language model that reads document images directly. No traditional OCR pipeline needed.
+
+### Why this model
+- Only 0.9B parameters — smaller than most OCR pipelines
+- Runs via MLX-VLM on Apple Silicon
+- Replaces Tesseract + regex + postprocessing
+- Cloud equivalent: GPT-4V ~$0.05/call
 
 </div>
 <div>
 
-### Expected Output
+### What to watch
 
-```json
-{
-  "invoice_number": "INV-2026-0042",
-  "vendor": "Acme Corp",
-  "total": 1250.00,
-  "line_items": [
-    {
-      "description": "Widget A",
-      "qty": 10,
-      "unit_price": 125.00
-    }
-  ],
-  "confidence": 0.94
-}
+Upload a real invoice PDF → model reads the image pixels → outputs clean Markdown with tables preserved.
+
 ```
+PDF page (image) → PaddleOCR-VL → Markdown
+```
+
+One model call replaces an entire OCR pipeline.
+
+| Metric | Value |
+|--------|-------|
+| Runtime | MLX-VLM |
+| Size | 0.9B |
+| Latency | *live* |
+| Cost | $0.00 |
 
 </div>
 </div>
 
 <!--
-LIVE DEMO: Feed a real PDF. Show JSON output. Highlight schema adherence.
+LIVE DEMO: Upload a messy invoice PDF. Show Markdown output with tables. Compare to traditional OCR.
 -->
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 3: JSON Extraction</div>
+<iframe src="http://localhost:8000/demo/3" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
+
+---
+
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 3: General Reasoning</div>
+<div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">Qwen3.5-2B · Ollama · Thinking mode on/off</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
 <div>
 
-### Task
-Structured extraction from unstructured text
+### What happens
+Same model, same prompt — toggle thinking mode and watch accuracy change dramatically.
 
 ### Model
-**Osmosis-Structure-0.6B** — purpose-built for extraction
+**Qwen3.5-2B** — supports native thinking mode via Ollama's `think` parameter. No prompt prefix needed.
 
-Only 600M parameters!
+### The test
+> A store offers 20% off a $150 jacket, then 15% more off, plus a $10 coupon. Final price? Better or worse than a single 35% discount?
+
+</div>
+<div>
+
+### Two runs, same model
+
+**Run 1 — No thinking:** Fast answer, likely misses the comparison or makes a math error.
+
+**Run 2 — With thinking:** Step-by-step chain-of-thought streams live. Correctly computes both paths and explains why stacked ≠ combined discounts.
+
+Thinking mode is a toggle, not a different model.
+
+| Metric | Value |
+|--------|-------|
+| Runtime | Ollama |
+| Size | 2B |
+| Latency | *live (both)* |
+| Cost | $0.00 |
+
+</div>
+</div>
+
+<!--
+LIVE DEMO: Run without thinking first, then with thinking. Show the chain-of-thought streaming live.
+-->
+
+---
+
+<iframe src="http://localhost:8000/demo/4" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
+
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
+
+---
+
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 4: Code Generation</div>
+<div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">Qwen3.5-4B · Ollama · Production-quality code</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
+<div>
+
+### What happens
+Generate a complete, runnable FastAPI app from a natural language spec — with type hints, error handling, and a health check endpoint.
+
+### Model
+**Qwen3.5-4B** — general-purpose model with strong code generation. Not a coding-specific model, but produces clean, idiomatic Python.
 
 ### Why this matters
-- Sub-100ms inference
-- Fits in 500MB RAM
-- Production-grade JSON output
+- No GitHub Copilot subscription needed
+- Scoped code tasks don't need 100B+ models
+- Cloud equivalent: Copilot ~$10/month
 
 </div>
 <div>
 
-### Input → Output
+### The prompt
 
-**Input text:**
-> "Please cancel my subscription for account #A-12345.
-> I've been a customer since 2019 but the price increase
-> is too much. Priority: high."
+> Write a FastAPI endpoint: POST with "text" and "language" fields, count sentences/words/chars, return JSON analysis, error handling, type hints, health check.
 
-**Extracted JSON:**
+### Expected output
+A complete runnable Python file with imports, Pydantic models, endpoints, and error handling.
 
-```json
-{
-  "intent": "cancellation",
-  "account_id": "A-12345",
-  "customer_since": 2019,
-  "reason": "price_increase",
-  "priority": "high"
-}
-```
+| Metric | Value |
+|--------|-------|
+| Runtime | Ollama |
+| Size | 4B |
+| Latency | *live* |
+| Cost | $0.00 |
 
 </div>
 </div>
 
 <!--
-LIVE DEMO: Show Osmosis 0.6B doing extraction. Emphasize the size — 600M params!
+LIVE DEMO: Generate FastAPI app. Could copy-paste and run it to prove it works.
 -->
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 4: RPA Screen Element Extraction</div>
+<iframe src="http://localhost:8000/demo/5" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
+
+---
+
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 5: Multilingual</div>
+<div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">Tiny Aya Fire · Ollama · 3B · 4 languages</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
 <div>
 
-### Task
-Extract interactive elements from a screenshot
-
-### Why SLMs Here?
-- Vision models need to be **fast** for real-time RPA
-- Can't send screenshots to cloud (privacy)
-- Need to identify buttons, fields, menus
+### What happens
+A 3B model explains "small language models" in English, Hindi, Tamil, and Telugu — all in one pass.
 
 ### Model
-Small Vision-Language Model (SVLM)
+**Tiny Aya Fire** (3B) — Cohere's multilingual model, trained across 100+ languages. Specifically strong on Indic languages.
+
+### Why at PyConf Hyderabad
+- Local languages matter for Indian deployment
+- PII stays on-device across all languages
+- Cloud equivalent: GPT-4o ~$0.01/call
 
 </div>
 <div>
 
-### What the model sees
+### The prompt
 
-```
-Screenshot → Model → Structured Output
+> Explain what a "small language model" is in 4 languages: English, Hindi (हिंदी), Tamil (தமிழ்), Telugu (తెలుగు). Keep each to 2 sentences.
 
-{
-  "elements": [
-    {"type": "button", "text": "Submit",
-     "bbox": [120, 340, 200, 370]},
-    {"type": "input", "label": "Email",
-     "bbox": [120, 280, 380, 310]},
-    {"type": "dropdown", "label": "Country",
-     "bbox": [120, 200, 380, 230]}
-  ]
-}
-```
+### What to watch
+- Script rendering quality
+- Factual consistency across languages
+- 3B model handling 4 languages simultaneously
 
-This is what Emma Robots does daily.
+| Metric | Value |
+|--------|-------|
+| Runtime | Ollama |
+| Size | 3B |
+| Latency | *live* |
+| Cost | $0.00 |
 
 </div>
 </div>
 
 <!--
-LIVE DEMO: This is directly from our production work at Emma. Show a screenshot → structured output.
+LIVE DEMO: Show Tiny Aya Fire generating multilingual output. Audience can verify their own language.
 -->
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo Scoreboard</div>
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo Recap</div>
 
-| | Code Gen | PDF Parsing | JSON Extract | RPA Vision |
-|---|---|---|---|---|
-| **Model** | Qwen 2.5 3B | Phi-3.5 Mini | Osmosis 0.6B | SVLM |
-| **Size** | 3B | 3.8B | 0.6B | ~2B |
-| **Quant** | Q4_K_M | Q4_K_M | FP16 | Q4 |
-| **Latency** | *measured* | *measured* | *measured* | *measured* |
-| **Cost** | $0.00 | $0.00 | $0.00 | $0.00 |
-| **Runs on** | CPU | CPU | CPU | CPU |
-| **Privacy** | Local | Local | Local | Local |
+<div style="font-size: 10px; margin-top: 4px;">
+
+| | JSON Parsing | PDF Extract | Reasoning | Code Gen | Multilingual |
+|---|---|---|---|---|---|
+| **Model** | NuExtract 2.0 | PaddleOCR-VL | Qwen3.5 | Qwen3.5 | Tiny Aya Fire |
+| **Size** | 2B | 0.9B | 2B | 4B | 3B |
+| **Runtime** | Ollama | MLX-VLM | Ollama | Ollama | Ollama |
+| **Latency** | *live* | *live* | *live* | *live* | *live* |
+| **Cost** | $0.00 | $0.00 | $0.00 | $0.00 | $0.00 |
+
+</div>
 
 <v-click>
 
-<div style="margin-top: 16px; padding: 14px; border-radius: 8px; text-align: center; font-size: 18px; background: linear-gradient(90deg, rgba(16,185,129,0.08), rgba(234,179,8,0.04)); border: 1px solid rgba(16,185,129,0.2);">
+<div style="margin-top: 12px; padding: 14px; border-radius: 8px; text-align: center; font-size: 18px; background: linear-gradient(90deg, rgba(16,185,129,0.08), rgba(234,179,8,0.04)); border: 1px solid rgba(16,185,129,0.2);">
 
-Total cloud API cost for all demos: **$0.00**
+5 demos, 5 models, all local: **$0.00**
 
 </div>
 
@@ -1251,37 +1031,87 @@ Fill in measured latencies during the live demos. The $0 cost is the punchline.
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Getting Started: It's Simpler Than You Think</div>
+<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">How to Get the Best of SLMs?</div>
+<div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">The demos worked — here's why, and how to make them work in production</div>
 
-```bash {all|1-2|4-5|7-8|10-11}
-# 1. Install Ollama (one command)
-curl -fsSL https://ollama.ai/install.sh | sh
+<v-click>
 
-# 2. Pull a model
-ollama pull phi3.5
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
 
-# 3. Run it
-ollama run phi3.5 "Extract JSON from: Order #123, 2 widgets at $50 each"
+<div style="padding: 12px 14px; border-radius: 8px; background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.2);">
+<div style="color: #10b981; font-weight: 700; font-size: 10px; letter-spacing: 1px; margin-bottom: 4px;">1. SCOPE THE TASK, NOT THE MODEL</div>
+<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;">Don't ask a 2B model to do everything. <strong style="color: rgba(255,255,255,0.8);">One model, one job</strong> — NuExtract only parses JSON, PaddleOCR only reads images. Narrow scope is why small models win.</div>
+</div>
 
-# 4. Use from Python
-pip install ollama
-```
+<div style="padding: 12px 14px; border-radius: 8px; background: rgba(139,92,246,0.05); border: 1px solid rgba(139,92,246,0.2);">
+<div style="color: #8b5cf6; font-weight: 700; font-size: 10px; letter-spacing: 1px; margin-bottom: 4px;">2. CONSTRAIN THE OUTPUT</div>
+<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;">Use <strong style="color: rgba(255,255,255,0.8);">structured decoding</strong> — JSON schemas, grammar constraints, template formats. A 350M model with constrained output hits 96% schema accuracy. Free guardrails.</div>
+</div>
 
-```python {all|1-5|7-10}
-import ollama
+<div style="padding: 12px 14px; border-radius: 8px; background: rgba(249,115,22,0.05); border: 1px solid rgba(249,115,22,0.2);">
+<div style="color: #f97316; font-weight: 700; font-size: 10px; letter-spacing: 1px; margin-bottom: 4px;">3. QUANTIZE AGGRESSIVELY</div>
+<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;">Q4 retains <strong style="color: rgba(255,255,255,0.8);">95%+ quality at 75% size reduction</strong>. Every demo you just saw ran quantized. For structured tasks, you won't notice the difference from FP16.</div>
+</div>
 
-response = ollama.chat(model='phi3.5', messages=[
-    {'role': 'user', 'content': 'Extract: Order #123, 2 widgets at $50'}
-])
+<div style="padding: 12px 14px; border-radius: 8px; background: rgba(234,179,8,0.05); border: 1px solid rgba(234,179,8,0.2);">
+<div style="color: #eab308; font-weight: 700; font-size: 10px; letter-spacing: 1px; margin-bottom: 4px;">4. FINE-TUNE LAST, NOT FIRST</div>
+<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;">Start with prompt engineering → add RAG if you need context → fine-tune only when you need deep specialization. <strong style="color: rgba(255,255,255,0.8);">LoRA on a 3B model costs ~$5</strong> on a single GPU.</div>
+</div>
 
-# That's it. Local. Private. Free.
-print(response['message']['content'])
-# {"order_id": "123", "items": [{"name": "widgets", "qty": 2, "price": 50}]}
-```
+<div style="padding: 12px 14px; border-radius: 8px; background: rgba(96,165,250,0.05); border: 1px solid rgba(96,165,250,0.2);">
+<div style="color: #60a5fa; font-weight: 700; font-size: 10px; letter-spacing: 1px; margin-bottom: 4px;">5. CASCADE, DON'T REPLACE</div>
+<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;">SLM-default, LLM-fallback. Route everything to the small model first — <strong style="color: rgba(255,255,255,0.8);">escalate only when confidence is low</strong>. Most queries never need the big model.</div>
+</div>
+
+<div style="padding: 12px 14px; border-radius: 8px; background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2);">
+<div style="color: #ef4444; font-weight: 700; font-size: 10px; letter-spacing: 1px; margin-bottom: 4px;">6. VERIFY WITH A SMALLER MODEL</div>
+<div style="color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5;">Verification needs less reasoning than generation. A <strong style="color: rgba(255,255,255,0.8);">1B model can validate a 3B model's output</strong> — cheaper than re-running or escalating to an LLM.</div>
+</div>
+
+</div>
+
+</v-click>
+
+<div style="position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; font-size: 8px; color: rgba(255,255,255,0.2);">
+Sources: RouteLLM (LMSYS) · MAS-ProVe (arXiv:2602.03053) · QLoRA (Dettmers et al.) · SLM-default LLM-fallback (Strathweb/Azure) · Constrained Decoding (Willard & Louf)
+</div>
 
 <!--
-Make it actionable. Everyone should be able to do this tonight.
+Bridge slide between demos and architecture. Each point ties back to what the audience just saw.
 -->
+
+---
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+  <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 4px; color: rgba(249,115,22,0.5); margin-bottom: 12px;">Part 04</div>
+  <div style="font-size: 32px; font-weight: 800; color: rgba(255,255,255,0.9); letter-spacing: -0.5px;">SLM-First Architecture</div>
+  <div style="width: 40px; height: 2px; background: linear-gradient(90deg, #f97316, #eab308); margin-top: 14px; border-radius: 1px;"></div>
+  <div style="color: rgba(255,255,255,0.3); font-size: 14px; margin-top: 12px;">The Cascade Pattern</div>
+</div>
+
+---
+
+<iframe src="/arch-diagram.html" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
+
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
+
+---
+
+<iframe src="http://localhost:8000/pipeline" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
+
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
+
+---
+
+<iframe src="/enterprise-diagram.html" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
+
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
 
 ---
 
@@ -1295,67 +1125,59 @@ Make it actionable. Everyone should be able to do this tonight.
 
 <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">When NOT to Use SLMs</div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 12px;">
 <div>
 
-### Don't use SLMs for:
+### ❌ Don't use SLMs for
 
-<v-clicks>
-
-- **Complex multi-step reasoning** without guardrails
-- Tasks requiring **deep world knowledge** freshness
-- **Open-ended creative generation** where "taste" matters
-- Long-context analysis (>32K tokens)
-- Tasks where **one wrong answer** is catastrophic and you have no validation layer
-
-</v-clicks>
+- **Multi-hop reasoning** <br><span style="color:rgba(255,255,255,0.35);font-size:13px;">GPT-4 drops to 41.6 EM on 3–4 hop chains; SLMs collapse exponentially</span> <span style="font-size:9px;color:rgba(255,255,255,0.15);">MRKE, arXiv:2402.11924</span>
+- **Long context (>32K)** <br><span style="color:rgba(255,255,255,0.35);font-size:13px;">11/12 models drop below 50% of short-context perf; effective window is 10–20% of advertised</span> <span style="font-size:9px;color:rgba(255,255,255,0.15);">Chroma Research '25</span>
+- **Broad world knowledge** <br><span style="color:rgba(255,255,255,0.35);font-size:13px;">MMLU: 3B → 74 vs 70B+ → 90+; no model exceeds 70% on FACTS factuality</span> <span style="font-size:9px;color:rgba(255,255,255,0.15);">DeepMind FACTS '25</span>
+- **Complex code gen** <br><span style="color:rgba(255,255,255,0.35);font-size:13px;">Gemma 3 4B: 71% HumanEval vs 90%+ frontier; 4× VRAM per 10% gain</span> <span style="font-size:9px;color:rgba(255,255,255,0.15);">ACL '25</span>
 
 </div>
 <div>
 
-### Common Failure Modes
+### ⚠️ Production failure modes
 
-<v-clicks>
-
-- **Hallucinated structure** — valid JSON, wrong content
-- **Domain shift** — works on test data, fails on production
-- **Confidence blindness** — model doesn't know what it doesn't know
-- **Format drift** — gradually loses output structure
-
-</v-clicks>
-
-<div v-click style="margin-top: 12px; padding: 12px; border-radius: 8px; background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.15);">
-
-**Mitigations**: Constrained outputs, retrieval augmentation, light fine-tuning, strong validation
-
-</div>
+- **Hallucination amplification** <br><span style="color:rgba(255,255,255,0.35);font-size:13px;">Distilled SLMs: >80% hallucination vs ~50% GPT-4o; CoT cuts 38% → 18%</span> <span style="font-size:9px;color:rgba(255,255,255,0.15);">PMC Survey '25</span>
+- **Confidence blindness** <br><span style="color:rgba(255,255,255,0.35);font-size:13px;">Smaller models show Dunning-Kruger effect; structured choices give 460% accuracy boost</span> <span style="font-size:9px;color:rgba(255,255,255,0.15);">OpenReview '25</span>
+- **Format drift** <br><span style="color:rgba(255,255,255,0.35);font-size:13px;">Mixtral: 31% inconsistency in instruction adherence over long outputs</span> <span style="font-size:9px;color:rgba(255,255,255,0.15);">LLM Drift Monitor '25</span>
+- **Domain shift collapse** <br><span style="color:rgba(255,255,255,0.35);font-size:13px;">Fine-tuned SLMs are brittle to distribution shifts; catastrophic forgetting is #1 deployment failure</span> <span style="font-size:9px;color:rgba(255,255,255,0.15);">arXiv:2508.03571</span>
 
 </div>
 </div>
+
 
 <!--
-Be honest about limitations. This builds credibility.
+Be honest about limitations. Data-backed with real benchmarks for credibility.
 -->
 
 ---
 
 <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">The "Should I Use an SLM?" Checklist</div>
 
-<v-clicks>
+<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 12px; list-style: none;">
 
-- [ ] Is the task **narrow and well-defined**? (classification, extraction, routing)
-- [ ] Can you **validate the output** programmatically? (schema, regex, whitelist)
-- [ ] Is **latency** critical? (< 500ms requirement)
-- [ ] Is **cost** a factor at scale? (>1K requests/day)
-- [ ] Does **data privacy** matter? (PII, regulated industry)
-- [ ] Can you tolerate a **fallback** to a larger model for edge cases?
-- [ ] Do you have **eval data** to test quality?
+<div style="display: flex; align-items: baseline; gap: 12px;"><span style="font-size: 16px; opacity: 0.4;">☐</span> <span>Is the task <strong>narrow and well-defined</strong>? <span style="color:rgba(255,255,255,0.3);font-size:13px;">(classification, extraction, routing)</span></span></div>
 
-</v-clicks>
+<div style="display: flex; align-items: baseline; gap: 12px;"><span style="font-size: 16px; opacity: 0.4;">☐</span> <span>Can you <strong>validate the output</strong> programmatically? <span style="color:rgba(255,255,255,0.3);font-size:13px;">(schema, regex, whitelist)</span></span></div>
 
-<div v-click style="margin-top: 12px; padding: 14px; border-radius: 8px; text-align: center; background: linear-gradient(90deg, rgba(16,185,129,0.08), rgba(234,179,8,0.04)); border: 1px solid rgba(16,185,129,0.2);">
+<div style="display: flex; align-items: baseline; gap: 12px;"><span style="font-size: 16px; opacity: 0.4;">☐</span> <span>Is <strong>latency</strong> critical? <span style="color:rgba(255,255,255,0.3);font-size:13px;">(< 500ms requirement)</span></span></div>
 
-**4+ checks?** → Start with an SLM. You can always escalate.
+<div style="display: flex; align-items: baseline; gap: 12px;"><span style="font-size: 16px; opacity: 0.4;">☐</span> <span>Is <strong>cost</strong> a factor at scale? <span style="color:rgba(255,255,255,0.3);font-size:13px;">(>1K requests/day)</span></span></div>
+
+<div style="display: flex; align-items: baseline; gap: 12px;"><span style="font-size: 16px; opacity: 0.4;">☐</span> <span>Does <strong>data privacy</strong> matter? <span style="color:rgba(255,255,255,0.3);font-size:13px;">(PII, regulated industry)</span></span></div>
+
+<div style="display: flex; align-items: baseline; gap: 12px;"><span style="font-size: 16px; opacity: 0.4;">☐</span> <span>Can you tolerate a <strong>fallback</strong> to a larger model? <span style="color:rgba(255,255,255,0.3);font-size:13px;">(confidence routing)</span></span></div>
+
+<div style="display: flex; align-items: baseline; gap: 12px;"><span style="font-size: 16px; opacity: 0.4;">☐</span> <span>Do you have <strong>eval data</strong> to test quality? <span style="color:rgba(255,255,255,0.3);font-size:13px;">(without evals, you're flying blind)</span></span></div>
+
+</div>
+
+<div style="margin-top: 16px; padding: 14px; border-radius: 8px; text-align: center; background: linear-gradient(90deg, rgba(16,185,129,0.08), rgba(234,179,8,0.04)); border: 1px solid rgba(16,185,129,0.2);">
+
+<strong>4+ checks?</strong> → Start with an SLM. You can always escalate.
 
 </div>
 
@@ -1366,19 +1188,35 @@ Practical takeaway. They can use this Monday morning.
 ---
 
 <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">The Future: Cascades & Composability</div>
+<div style="font-size: 11px; color: rgba(255,255,255,0.25); margin-bottom: 14px;">The pattern emerging everywhere in production AI</div>
 
-<v-clicks>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
 
-### The pattern emerging everywhere:
+<div style="padding: 10px 14px; border-radius: 10px; background: rgba(16,185,129,0.04); border: 1px solid rgba(16,185,129,0.12); border-left: 3px solid #10b981;">
+<div style="font-size: 10px; font-weight: 700; color: #10b981; letter-spacing: 1px; margin-bottom: 3px;">01 — DEFAULT</div>
+<div style="font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85);">SLM handles the majority</div>
+<div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 2px;">90% of requests stay local — fast, cheap, private</div>
+</div>
 
-1. **SLM as default** — handle the majority of requests locally
-2. **Escalation on hard cases** — bigger model only when needed
-3. **Continuous evals** — data flywheel improves the small model over time
-4. **Model as infrastructure** — not a service, a component
+<div style="padding: 10px 14px; border-radius: 10px; background: rgba(139,92,246,0.04); border: 1px solid rgba(139,92,246,0.12); border-left: 3px solid #8b5cf6;">
+<div style="font-size: 10px; font-weight: 700; color: #8b5cf6; letter-spacing: 1px; margin-bottom: 3px;">02 — ESCALATE</div>
+<div style="font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85);">LLM only when needed</div>
+<div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 2px;">Confidence routing sends hard cases up the cascade</div>
+</div>
 
-</v-clicks>
+<div style="padding: 10px 14px; border-radius: 10px; background: rgba(234,179,8,0.04); border: 1px solid rgba(234,179,8,0.12); border-left: 3px solid #eab308;">
+<div style="font-size: 10px; font-weight: 700; color: #eab308; letter-spacing: 1px; margin-bottom: 3px;">03 — LEARN</div>
+<div style="font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85);">Data flywheel improves SLM</div>
+<div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 2px;">Every LLM fallback becomes training data for the small model</div>
+</div>
 
-<div v-click style="margin-top: 12px;">
+<div style="padding: 10px 14px; border-radius: 10px; background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.12); border-left: 3px solid #f97316;">
+<div style="font-size: 10px; font-weight: 700; color: #f97316; letter-spacing: 1px; margin-bottom: 3px;">04 — COMPOSE</div>
+<div style="font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85);">Model as infrastructure</div>
+<div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 2px;">Not a service — a component you own, version, and deploy</div>
+</div>
+
+</div>
 
 ```mermaid
 graph LR
@@ -1393,41 +1231,8 @@ graph LR
     style D fill:#ef4444,color:#fff
 ```
 
-</div>
-
-<div v-click style="margin-top: 8px; text-align: center; font-size: 16px;">
-
-**Production AI is an optimization problem — SLMs give you more control knobs.**
-
-</div>
-
 <!--
 The data flywheel. Each LLM fallback is training data for improving the SLM.
--->
-
----
-
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Notable Models to Watch</div>
-
-| Model | Size | Strength |
-|-------|------|----------|
-| **Phi-3.5 Mini** | 3.8B | General tasks, Microsoft ecosystem |
-| **Gemma 2/3** | 2B-9B | Google quality, open weights |
-| **Qwen 2.5** | 0.5B-7B | Multilingual, code, math |
-| **Osmosis Structure** | 0.6B | Purpose-built extraction |
-| **Mercury** | ~3B | Ultra-fast inference |
-| **LFM 2.5 (Liquid)** | ~3B | On-device agents |
-| **SmolLM** | 0.1B-1.7B | Tiny but capable |
-| **Jina VLM** | ~1B | Small vision-language |
-
-<div v-click style="margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.45);">
-
-**Runtimes**: Ollama, llama.cpp, MLX (Apple), ONNX Runtime, vLLM, BentoML
-
-</div>
-
-<!--
-Reference slide. They can look this up later.
 -->
 
 ---
@@ -1459,10 +1264,12 @@ Strong close. Make it actionable. Everyone can do this tonight.
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
   <div style="font-size: 36px; font-weight: 800; letter-spacing: -1px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Thank You</div>
   <div style="color: rgba(255,255,255,0.6); font-size: 16px; margin-top: 16px; font-weight: 600;">Gokulavasan Murali</div>
-  <div style="color: rgba(255,255,255,0.3); font-size: 13px; margin-top: 4px;">Head of Engineering, Emma Robots Inc.</div>
   <div style="width: 40px; height: 2px; background: linear-gradient(90deg, #f97316, #eab308); margin-top: 20px; border-radius: 1px;"></div>
-  <div style="color: rgba(255,255,255,0.25); font-size: 11px; margin-top: 16px;">Ex-Plena, Flytta, Accenture · PyCon India organizer</div>
-  <div style="margin-top: 24px; padding: 6px 18px; border-radius: 99px; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); color: rgba(249,115,22,0.7); font-size: 13px;">Questions?</div>
+  <div style="margin-top: 36px; padding: 20px 48px; border-radius: 12px; background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.15);">
+    <div style="color: rgba(255,255,255,0.35); font-size: 11px; letter-spacing: 1.5px; margin-bottom: 8px;">SLIDES & DEMO CODEBASE</div>
+    <div style="font-size: 24px; font-weight: 800; color: #f97316; letter-spacing: 0.5px;">gok03.com/slm-talk</div>
+  </div>
+  <div style="margin-top: 20px; padding: 6px 18px; border-radius: 99px; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); color: rgba(249,115,22,0.7); font-size: 13px;">Questions?</div>
 </div>
 
 <!--

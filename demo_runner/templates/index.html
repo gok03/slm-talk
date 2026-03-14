@@ -1201,7 +1201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ══════════════════════════════════════════════════════════
    DEMO SWITCHING
 ══════════════════════════════════════════════════════════ */
-function switchDemo(id) {
+function switchDemo(id, pushHistory = true) {
   id = parseInt(id);
   // Hide all panels
   document.querySelectorAll('.demo-panel').forEach(el => el.classList.remove('active'));
@@ -1212,7 +1212,22 @@ function switchDemo(id) {
   const nav = document.getElementById('nav-' + id);
   if (nav) nav.classList.add('active');
   currentDemo = id;
+  if (pushHistory) history.pushState({demo: id}, '', '/demo/' + id);
 }
+
+// Init: read URL, hide sidebar if at /demo/N
+(function() {
+  const m = window.location.pathname.match(/^\/demo\/(\d+)$/);
+  if (m) {
+    document.getElementById('sidebar').style.display = 'none';
+    document.getElementById('status-bar').style.display = 'none';
+    switchDemo(parseInt(m[1]), false);
+  }
+})();
+
+window.addEventListener('popstate', (e) => {
+  if (e.state && e.state.demo) switchDemo(e.state.demo, false);
+});
 
 /* ══════════════════════════════════════════════════════════
    HEALTH POLLING
