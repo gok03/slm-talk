@@ -10,7 +10,7 @@ from typing import Optional
 
 import httpx
 import psutil
-from fastapi import BackgroundTasks, FastAPI, File, Form, Request, UploadFile
+from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
@@ -22,11 +22,22 @@ ASSETS_DIR.mkdir(exist_ok=True)
 app = FastAPI(title="SLM Demo Runner")
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
+
+@app.on_event("startup")
+async def _startup():
+    global http_client
+    http_client = httpx.AsyncClient(timeout=30.0)
+
 # ── In-memory state ──────────────────────────────────────────────────────────
 run_queues: dict[str, asyncio.Queue] = {}
 run_metrics: dict[str, dict] = {}
 run_cancelled: set[str] = set()
 run_tasks: dict[str, asyncio.Task] = {}   # run_id -> asyncio Task (for cancellation)
+
+# ── Pipeline state (separate from demo run_queues) ─────────────────────────
+pipeline_queues: dict[str, asyncio.Queue] = {}
+http_client: httpx.AsyncClient | None = None  # initialised in startup event
+
 mlx_model_cache: dict[str, tuple] = {}     # model_name -> (model, tokenizer)
 mlx_vlm_cache: dict[str, tuple] = {}      # model_name -> (model, processor, config)
 hf_model_cache: dict[str, tuple] = {}     # model_name -> (model, processor)
@@ -269,11 +280,13 @@ def _mlx_vlm_stream_blocking(
     prompt: str,
     image_path: str,
     loop: asyncio.AbstractEventLoop,
+    queue_store: dict | None = None,
 ) -> None:
     from mlx_vlm import stream_generate
     from mlx_vlm.prompt_utils import apply_chat_template
 
-    queue = run_queues[run_id]
+    _qs = queue_store if queue_store is not None else run_queues
+    queue = _qs[run_id]
 
     def _push(event: dict) -> None:
         asyncio.run_coroutine_threadsafe(queue.put(event), loop)
@@ -321,8 +334,10 @@ async def _run_mlx_vlm(
     model_name: str,
     prompt: str,
     selected_file: Optional[str],
+    queue_store: dict | None = None,
 ) -> None:
-    queue = run_queues[run_id]
+    _qs = queue_store if queue_store is not None else run_queues
+    queue = _qs[run_id]
     loop = asyncio.get_event_loop()
 
     # Resolve image: convert PDF to PNG temp file, or use image directly
@@ -354,7 +369,7 @@ async def _run_mlx_vlm(
     try:
         await _load_mlx_vlm_model(model_name)
         await loop.run_in_executor(
-            None, _mlx_vlm_stream_blocking, run_id, model_name, prompt, image_path, loop
+            None, _mlx_vlm_stream_blocking, run_id, model_name, prompt, image_path, loop, _qs
         )
     except Exception as exc:
         await queue.put({"type": "error", "message": str(exc)})
@@ -372,9 +387,12 @@ async def _run_ollama(
     raw: bool = False,
     vision: bool = False,
     think: Optional[bool] = None,
+    queue_store: dict | None = None,
+    extra_options: dict | None = None,
 ) -> None:
     """Stream an Ollama model response, pushing SSE events to the run queue."""
-    queue = run_queues[run_id]
+    _qs = queue_store if queue_store is not None else run_queues
+    queue = _qs[run_id]
     t_start = time.perf_counter()
     first_token_at: Optional[float] = None
     token_count = 0
@@ -402,11 +420,14 @@ async def _run_ollama(
                         image_b64 = base64.b64encode(f.read_bytes()).decode()
                     break
 
+    options: dict = {"num_predict": 2048}
+    if extra_options:
+        options.update(extra_options)
     payload: dict = {
         "model": model_name,
         "prompt": prompt,
         "stream": True,
-        "options": {"num_predict": 2048},
+        "options": options,
     }
     if raw:
         payload["raw"] = True
@@ -799,6 +820,183 @@ async def _check_ollama_model(model_name: str) -> bool:
             return any(n.startswith(base) for n in names)
     except Exception:
         return False
+
+
+# ── A2A worker routes ────────────────────────────────────────────────────────
+
+from pipeline.a2a import AgentCard, Task, create_task, get_task, task_stores
+from pipeline.workers import run_ocr_worker, run_json_worker, run_browser_worker
+
+AGENT_CARDS = {
+    "ocr": AgentCard(
+        name="ocr",
+        description="PDF→Markdown via PaddleOCR-VL-1.5",
+        url="http://localhost:8000/workers/ocr",
+        capabilities=["ocr", "pdf", "vision"],
+    ),
+    "json": AgentCard(
+        name="json",
+        description="Markdown→JSON via NuExtract-2.0",
+        url="http://localhost:8000/workers/json",
+        capabilities=["extraction", "json"],
+    ),
+    "browser": AgentCard(
+        name="browser",
+        description="Form automation via Playwright MCP + Qwen3.5:4b",
+        url="http://localhost:8000/workers/browser",
+        capabilities=["browser", "form-fill"],
+    ),
+}
+
+
+@app.get("/workers/{name}/agent.json")
+async def get_agent_card(name: str):
+    card = AGENT_CARDS.get(name)
+    if not card:
+        return JSONResponse({"error": "unknown worker"}, status_code=404)
+    return {
+        "name": card.name,
+        "description": card.description,
+        "url": card.url,
+        "capabilities": card.capabilities,
+    }
+
+
+class WorkerTaskRequest(BaseModel):
+    file: Optional[str] = None
+    text: Optional[str] = None
+    invoice_json: Optional[dict] = None
+    form_url: Optional[str] = None
+    run_id: str = ""
+    use_cloud: bool = False
+
+
+@app.post("/workers/{name}/tasks")
+async def create_worker_task(name: str, body: WorkerTaskRequest):
+    if name not in AGENT_CARDS:
+        return JSONResponse({"error": "unknown worker"}, status_code=404)
+
+    run_id = body.run_id
+    if not run_id or run_id not in pipeline_queues:
+        return JSONResponse({"error": "invalid run_id"}, status_code=400)
+
+    task = create_task(name, body.model_dump())
+
+    if name == "ocr":
+        asyncio.create_task(run_ocr_worker(task.id, run_id, body.file or ""))
+    elif name == "json":
+        asyncio.create_task(run_json_worker(task.id, run_id, body.text or ""))
+    elif name == "browser":
+        asyncio.create_task(run_browser_worker(
+            task.id, run_id,
+            body.invoice_json or {},
+            body.form_url or "http://localhost:8000/form",
+            body.use_cloud,
+        ))
+
+    return {"task_id": task.id}
+
+
+@app.get("/workers/{name}/tasks/{task_id}")
+async def get_worker_task(name: str, task_id: str):
+    task = get_task(name, task_id)
+    if not task:
+        return JSONResponse({"error": "task not found"}, status_code=404)
+    return {
+        "id": task.id,
+        "state": task.state,
+        "output": task.output,
+        "error": task.error,
+    }
+
+
+# ── Pipeline run/stream routes ────────────────────────────────────────────────
+
+from pipeline.supervisor import run_pipeline
+
+
+class PipelineRunRequest(BaseModel):
+    file: Optional[str] = None
+    invoice_json: Optional[dict] = None
+    use_cloud: bool = False
+
+
+@app.post("/pipeline/run")
+async def start_pipeline(body: PipelineRunRequest):
+    run_id = str(uuid.uuid4())
+    pipeline_queues[run_id] = asyncio.Queue(maxsize=1024)
+    asyncio.create_task(run_pipeline(run_id, body.file, body.invoice_json, body.use_cloud))
+    return {"run_id": run_id}
+
+
+@app.get("/pipeline/stream/{run_id}")
+async def stream_pipeline(run_id: str):
+    q = pipeline_queues.get(run_id)
+    print(f"[SSE] stream_pipeline connected run_id={run_id} queue={'found' if q else 'MISSING'}", flush=True)
+    if not q:
+        return JSONResponse({"error": "pipeline run not found"}, status_code=404)
+
+    async def event_gen():
+        print(f"[SSE] event_gen started for {run_id}", flush=True)
+        try:
+            while True:
+                try:
+                    item = await asyncio.wait_for(q.get(), timeout=180)
+                except asyncio.TimeoutError:
+                    yield "data: " + json.dumps({"type": "error", "message": "pipeline timeout"}) + "\n\n"
+                    break
+                yield "data: " + json.dumps(item) + "\n\n"
+                if item.get("type") in ("done", "error", "cancelled"):
+                    break
+        finally:
+            print(f"[SSE] event_gen finished for {run_id}", flush=True)
+            pipeline_queues.pop(run_id, None)
+
+    return StreamingResponse(
+        event_gen(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
+
+
+@app.post("/pipeline/cancel/{run_id}")
+async def cancel_pipeline(run_id: str):
+    run_cancelled.add(run_id)
+    q = pipeline_queues.get(run_id)
+    if q:
+        await q.put({"type": "cancelled"})
+    return {"cancelled": run_id}
+
+
+@app.get("/pipeline")
+async def pipeline_page(request: Request):
+    return templates.TemplateResponse("pipeline.html", {"request": request})
+
+
+# ── Form routes ───────────────────────────────────────────────────────────────
+
+_form_submissions: dict[str, dict] = {}
+
+
+@app.get("/form")
+async def form_page(request: Request):
+    return templates.TemplateResponse("form.html", {"request": request})
+
+
+class FormSubmitRequest(BaseModel):
+    invoice_number: Optional[str] = None
+    date: Optional[str] = None
+    vendor_name: Optional[str] = None
+    vendor_address: Optional[str] = None
+    line_items: Optional[list] = None
+    tax_rate: Optional[str] = None
+    total: Optional[str] = None
+
+
+@app.post("/form/submit")
+async def submit_form(body: FormSubmitRequest):
+    _form_submissions["latest"] = body.model_dump()
+    return {"ok": True}
 
 
 # ── Startup ───────────────────────────────────────────────────────────────────

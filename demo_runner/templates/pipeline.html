@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi-Agent SLM Pipeline</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'SF Mono', 'Fira Code', monospace; background: #0d1117; color: #c9d1d9;
+           min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── Header ── */
+    .header { padding: 12px 20px; border-bottom: 1px solid #21262d;
+              display: flex; align-items: center; gap: 16px; }
+    .header h1 { font-size: 15px; color: #58a6ff; font-weight: 600; }
+    .header .sub { font-size: 11px; color: #8b949e; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #8b949e; }
+    .status-dot.running { background: #f0883e; animation: pulse 1s infinite; }
+    .status-dot.done { background: #3fb950; }
+    .status-dot.error { background: #da3633; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* ── Controls ── */
+    .controls { padding: 10px 20px; border-bottom: 1px solid #21262d;
+                display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    select { background: #161b22; border: 1px solid #30363d; color: #c9d1d9;
+             padding: 6px 10px; border-radius: 4px; font-size: 13px; }
+    button { padding: 6px 14px; border-radius: 4px; border: none; cursor: pointer;
+             font-size: 13px; font-family: inherit; }
+    .btn-run { background: #238636; color: #fff; }
+    .btn-run:hover { background: #2ea043; }
+    .btn-run:disabled { background: #30363d; color: #8b949e; cursor: default; }
+    .btn-stop { background: #da3633; color: #fff; }
+    .btn-stop:hover { background: #f85149; }
+    .btn-stop:disabled { background: #30363d; color: #8b949e; cursor: default; }
+    .btn-clear { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
+    /* ── Model toggle ── */
+    .model-toggle { display: flex; border: 1px solid #30363d; border-radius: 4px; overflow: hidden; margin-left: 8px; }
+    .model-toggle button { border-radius: 0; border: none; background: #161b22; color: #8b949e; padding: 6px 12px; font-size: 11px; }
+    .model-toggle button.active { background: #1f6feb; color: #fff; }
+    .model-toggle button:hover:not(.active) { background: #21262d; color: #c9d1d9; }
+    .btn-clear:hover { background: #30363d; }
+
+    /* ── Pipeline grid ── */
+    .pipeline { flex: 1; display: grid; grid-template-columns: 0.75fr 1fr 1fr 1.4fr;
+                gap: 1px; background: #21262d; min-height: 0; }
+    .col { background: #0d1117; display: flex; flex-direction: column; }
+    .col-header { padding: 10px 12px; border-bottom: 1px solid #21262d;
+                  display: flex; align-items: center; gap: 8px; }
+    .col-title { font-size: 10px; font-weight: 700; color: #58a6ff; text-transform: uppercase;
+                 letter-spacing: 0.05em; flex: 1; }
+    .col-status { font-size: 9px; color: #8b949e; }
+    .col-status.running { color: #f0883e; }
+    .col-status.done { color: #3fb950; }
+    .col-status.error { color: #da3633; }
+    .col-body { flex: 1; overflow-y: auto; padding: 10px 12px; font-size: 10px; line-height: 1.9;
+                min-height: 0; }
+    .col-footer { padding: 6px 12px; border-top: 1px solid #21262d;
+                  font-size: 9px; color: #8b949e; }
+    .col-footer.done { color: #3fb950; }
+
+    /* ── Log colors ── */
+    .log-proto { color: #8b949e; }
+    .log-token { color: #c9d1d9; }
+    .log-ok { color: #3fb950; }
+    .log-err { color: #da3633; }
+
+    /* ── Browser column extras ── */
+    .browser-col { display: flex; flex-direction: column; }
+    .browser-log { flex: 0 0 35%; overflow-y: auto; padding: 10px 12px;
+                   font-size: 10px; line-height: 1.9; border-bottom: 1px solid #21262d; }
+    .browser-screen-wrap { flex: 1; position: relative; min-height: 0; background: #161b22;
+                            display: flex; align-items: center; justify-content: center; }
+    .browser-screen-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+    .browser-screen-wrap .screen-placeholder { color: #8b949e; font-size: 10px; }
+    .screen-label { position: absolute; top: 4px; right: 8px; font-size: 9px;
+                    color: #8b949e; z-index: 1; pointer-events: none; }
+
+    /* ── Metrics bar ── */
+    .metrics-bar { padding: 8px 20px; border-top: 1px solid #21262d;
+                   font-size: 10px; color: #8b949e; display: flex; justify-content: space-between; }
+    .metrics-bar .highlight { color: #3fb950; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="status-dot" id="global-dot"></div>
+  <h1>⬡ Multi-Agent SLM Pipeline</h1>
+  <span class="sub">LangGraph supervisor · A2A protocol · Playwright MCP · $0.00</span>
+</div>
+
+<div class="controls">
+  <select id="file-select">
+    <option value="file:simple_invoice.pdf">simple_invoice.pdf</option>
+    <option value='json:{"invoice_number":"INV-2026-042","date":"2026-03-14","total":"2,95,590"}'>{"invoice_number":"INV-2026-042","date":"2026-03-14","total":"2,95,590"}</option>
+  </select>
+  <button class="btn-run" id="btn-run" onclick="runPipeline()">▶ Run Pipeline</button>
+  <button class="btn-stop btn-stop-disabled" id="btn-stop" onclick="stopPipeline()" disabled>■ Stop</button>
+  <button class="btn-clear" onclick="clearAll()">✕ Clear</button>
+  <div class="model-toggle">
+    <button id="toggle-local" class="active" onclick="setModel('local')">Local · 9b</button>
+    <button id="toggle-cloud" onclick="setModel('cloud')">Cloud · 35B</button>
+  </div>
+  <span id="run-status" style="font-size:11px;color:#8b949e;margin-left:8px"></span>
+</div>
+
+<div class="pipeline">
+
+  <!-- Supervisor -->
+  <div class="col" id="col-supervisor">
+    <div class="col-header">
+      <span class="col-title">Supervisor · LangGraph</span>
+      <span class="col-status" id="status-supervisor">waiting</span>
+    </div>
+    <div class="col-body" id="log-supervisor"></div>
+    <div class="col-footer" id="footer-supervisor">LangGraph · StateGraph</div>
+  </div>
+
+  <!-- OCR Worker -->
+  <div class="col" id="col-ocr">
+    <div class="col-header">
+      <div class="status-dot" id="dot-ocr"></div>
+      <span class="col-title">OCR Worker</span>
+      <span class="col-status" id="status-ocr">waiting</span>
+    </div>
+    <div class="col-body" id="log-ocr"></div>
+    <div class="col-footer" id="footer-ocr">PaddleOCR-VL-1.5 · 0.9B · MLX-VLM</div>
+  </div>
+
+  <!-- JSON Worker -->
+  <div class="col" id="col-json">
+    <div class="col-header">
+      <div class="status-dot" id="dot-json"></div>
+      <span class="col-title">JSON Worker</span>
+      <span class="col-status" id="status-json">waiting</span>
+    </div>
+    <div class="col-body" id="log-json"></div>
+    <div class="col-footer" id="footer-json">NuExtract-2.0 · 2B · Ollama</div>
+  </div>
+
+  <!-- Browser Worker -->
+  <div class="col browser-col" id="col-browser">
+    <div class="col-header">
+      <div class="status-dot" id="dot-browser"></div>
+      <span class="col-title">Browser Worker · Playwright MCP</span>
+      <span class="col-status" id="status-browser">waiting</span>
+    </div>
+    <div class="browser-log" id="log-browser"></div>
+    <div class="browser-screen-wrap" id="browser-screen-wrap">
+      <span class="screen-label">🌐 live browser</span>
+      <span class="screen-placeholder" id="screen-placeholder">waiting for browser…</span>
+      <img id="browser-screen" src="" alt="" style="display:none">
+    </div>
+    <div class="col-footer" id="footer-browser">Qwen3.5:2b · Ollama · Playwright MCP</div>
+  </div>
+
+</div>
+
+<div class="metrics-bar">
+  <span id="metrics-left">Ready</span>
+  <span class="highlight" id="metrics-right">3 models · 0 API calls · $0.00</span>
+</div>
+
+<script>
+  let evtSource = null;
+  let runId = null;
+  let stepTimes = {};
+  let pipelineStart = null;
+  let useCloud = false;
+
+  function setModel(mode) {
+    useCloud = mode === 'cloud';
+    document.getElementById('toggle-local').classList.toggle('active', !useCloud);
+    document.getElementById('toggle-cloud').classList.toggle('active', useCloud);
+    const label = useCloud ? 'Qwen3.5-35B · OpenRouter' : 'Qwen3.5-9b · Ollama';
+    const shortLabel = useCloud ? '35B-A3B · OpenRouter' : '9b · Ollama';
+    document.getElementById('footer-supervisor').textContent = label;
+    document.getElementById('footer-browser').textContent = `${shortLabel} · Playwright MCP`;
+  }
+
+  // ── Run ──
+  async function runPipeline() {
+    const val = document.getElementById('file-select').value;
+    clearAll();
+    setGlobalStatus('running');
+    document.getElementById('btn-run').disabled = true;
+    document.getElementById('btn-stop').disabled = false;
+    document.getElementById('run-status').textContent = 'Running…';
+    pipelineStart = Date.now();
+
+    let body;
+    if (val.startsWith('json:')) {
+      body = {invoice_json: JSON.parse(val.slice(5))};
+    } else {
+      body = {file: val.slice(5)};  // strip 'file:' prefix
+    }
+
+    body.use_cloud = useCloud;
+    const resp = await fetch('/pipeline/run', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body),
+    });
+    const data = await resp.json();
+    runId = data.run_id;
+
+    evtSource = new EventSource(`/pipeline/stream/${runId}`);
+    evtSource.onmessage = (e) => handleEvent(JSON.parse(e.data));
+    evtSource.onerror = () => {
+      setGlobalStatus('error');
+      document.getElementById('run-status').textContent = 'Stream error';
+      finish();
+    };
+  }
+
+  // ── Stop ──
+  async function stopPipeline() {
+    if (!runId) return;
+    await fetch(`/pipeline/cancel/${runId}`, {method: 'POST'});
+    setGlobalStatus('idle');
+    document.getElementById('run-status').textContent = 'Stopped';
+    finish();
+  }
+
+  // ── Event handler ──
+  function handleEvent(evt) {
+    const type = evt.type;
+    const step = evt.step || 'supervisor';
+
+    if (type === 'step_start') {
+      stepTimes[step] = Date.now();
+      setColStatus(step, 'running');
+      appendLog(step, `← ${evt.label || step} started\n`, 'proto');
+      return;
+    }
+
+    if (type === 'token') {
+      const text = evt.text || '';
+      const cls = text.startsWith('→') || text.includes('✓') ? 'ok'
+                : text.startsWith('   ERROR') ? 'err'
+                : text.startsWith('   ') || text.startsWith('←') ? 'proto'
+                : 'token';
+      appendLog(step, text, cls);
+      return;
+    }
+
+    if (type === 'browser_screenshot') {
+      const img = document.getElementById('browser-screen');
+      const placeholder = document.getElementById('screen-placeholder');
+      img.src = `data:image/png;base64,${evt.data}`;
+      img.style.display = 'block';
+      if (placeholder) placeholder.style.display = 'none';
+      return;
+    }
+
+    if (type === 'step_done') {
+      const dur = evt.duration_s || ((Date.now() - (stepTimes[step] || Date.now())) / 1000).toFixed(1);
+      setColStatus(step, 'done', `✓ ${dur}s`);
+      setColFooter(step, `done — ${dur}s`);
+      return;
+    }
+
+    if (type === 'step_error') {
+      setColStatus(step, 'error', '✗ failed');
+      appendLog(step, `ERROR: ${evt.message || ''}\n`, 'err');
+      return;
+    }
+
+    if (type === 'done') {
+      const total = ((Date.now() - pipelineStart) / 1000).toFixed(1);
+      setGlobalStatus('done');
+      document.getElementById('run-status').textContent = `Done in ${total}s`;
+      document.getElementById('metrics-left').textContent =
+        `Total: ${total}s`;
+      evtSource && evtSource.close();
+      finish();
+      return;
+    }
+
+    if (type === 'error' || type === 'cancelled') {
+      setGlobalStatus('error');
+      document.getElementById('run-status').textContent = type === 'cancelled' ? 'Cancelled' : `Error: ${evt.message}`;
+      evtSource && evtSource.close();
+      finish();
+    }
+  }
+
+  function finish() {
+    document.getElementById('btn-run').disabled = false;
+    document.getElementById('btn-stop').disabled = true;
+    evtSource = null;
+    runId = null;
+  }
+
+  // ── DOM helpers ──
+  function appendLog(step, text, cls = 'token') {
+    const el = document.getElementById(`log-${step}`);
+    if (!el) return;
+    const span = document.createElement('span');
+    span.className = `log-${cls}`;
+    span.textContent = text;
+    el.appendChild(span);
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function setColStatus(step, state, label = null) {
+    const el = document.getElementById(`status-${step}`);
+    if (el) {
+      el.className = `col-status ${state}`;
+      el.textContent = label || state;
+    }
+    const dot = document.getElementById(`dot-${step}`);
+    if (dot) {
+      dot.className = `status-dot ${state}`;
+    }
+  }
+
+  function setColFooter(step, text) {
+    const el = document.getElementById(`footer-${step}`);
+    if (el) {
+      el.className = `col-footer done`;
+      const base = el.textContent.split('—')[0].trim();
+      el.textContent = `${base} — ${text}`;
+    }
+  }
+
+  function setGlobalStatus(state) {
+    const dot = document.getElementById('global-dot');
+    dot.className = `status-dot ${state === 'running' ? 'running' : state === 'done' ? 'done' : state === 'error' ? 'error' : ''}`;
+  }
+
+  function clearAll() {
+    ['supervisor','ocr','json','browser'].forEach(s => {
+      const el = document.getElementById(`log-${s}`);
+      if (el) el.innerHTML = '';
+      setColStatus(s, '');
+    });
+    const img = document.getElementById('browser-screen');
+    if (img) { img.src = ''; img.style.display = 'none'; }
+    const ph = document.getElementById('screen-placeholder');
+    if (ph) ph.style.display = '';
+
+    document.getElementById('run-status').textContent = '';
+    document.getElementById('metrics-left').textContent = 'Ready';
+    setGlobalStatus('idle');
+  }
+
+  // ── Keyboard shortcuts ──
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'r' || e.key === 'R') runPipeline();
+    if (e.key === 's' || e.key === 'S') stopPipeline();
+    if (e.key === 'd' || e.key === 'D') clearAll();
+  });
+</script>
+
+</body>
+</html>
