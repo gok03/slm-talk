@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e;
+    color: #fff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 24px 10px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+  .title {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f97316, #eab308);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .sub { font-size: 9px; color: rgba(255,255,255,0.18); margin-top: 2px; }
+  .legend { display: flex; gap: 8px; flex-wrap: wrap; }
+  .legend i {
+    display: flex; align-items: center; gap: 3px;
+    font-style: normal; font-size: 7px; color: rgba(255,255,255,0.3);
+  }
+  .legend i::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    display: inline-block;
+  }
+  .l-mistral::before  { background: #C8861A; }
+  .l-ms::before       { background: #3B8FD4; }
+  .l-google::before   { background: #1DAA7A; }
+  .l-alibaba::before  { background: #E05E2A; }
+  .l-hf::before       { background: #8A7FE0; }
+  .l-meta::before     { background: #5FAA22; }
+  .l-ds::before       { background: #D45892; }
+  .l-oai::before      { background: #8A8A85; }
+
+  /* ── SNAKE CONTAINER ── */
+  .snake {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* The SVG snake path behind everything */
+  .snake svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── MODEL NODES (absolute positioned on the snake) ── */
+  .node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+  }
+  .node.above { flex-direction: column; }
+  .node.below { flex-direction: column-reverse; }
+
+  .node .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2.5px solid;
+    background: #1a1a2e;
+    flex-shrink: 0;
+    z-index: 3;
+    position: relative;
+  }
+  .node .dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .node .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px 0;
+    max-width: 95px;
+  }
+  .node.above .info { padding-bottom: 4px; }
+  .node.below .info { padding-top: 4px; }
+
+  .node .model {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.88);
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .node .org {
+    font-size: 7px;
+    font-weight: 600;
+    margin-top: 1px;
+  }
+  .node .date {
+    font-size: 6.5px;
+    color: rgba(255,255,255,0.18);
+    margin-top: 1px;
+    letter-spacing: 0.3px;
+  }
+  .node .desc {
+    font-size: 6.5px;
+    color: rgba(255,255,255,0.2);
+    text-align: center;
+    margin-top: 2px;
+    line-height: 1.25;
+    max-width: 85px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="title">The Rise of Small Language Models</div>
+    <div class="sub">Sep 2023 – Feb 2026 · 17 key releases · 8 labs</div>
+  </div>
+  <div class="legend">
+    <i class="l-mistral">Mistral</i>
+    <i class="l-ms">Microsoft</i>
+    <i class="l-google">Google</i>
+    <i class="l-alibaba">Alibaba</i>
+    <i class="l-hf">HuggingFace</i>
+    <i class="l-meta">Meta</i>
+    <i class="l-ds">DeepSeek</i>
+    <i class="l-oai">OpenAI</i>
+  </div>
+</div>
+
+<div class="snake" id="snake"></div>
+
+<script>
+const models = [
+  // Row 1: left → right
+  { name: "Mistral 7B",      org: "Mistral AI",   color: "#C8861A", date: "Sep 2023", desc: "First 7B to rival 5× larger" },
+  { name: "Phi-1.5 1.3B",    org: "Microsoft",    color: "#3B8FD4", date: "Oct 2023", desc: "Synthetic data beats scale" },
+  { name: "Gemma 2B/7B",     org: "Google",       color: "#1DAA7A", date: "Feb 2024", desc: "Google enters open SLM" },
+  { name: "Phi-3 Mini 3.8B", org: "Microsoft",    color: "#3B8FD4", date: "Apr 2024", desc: "Runs in 4 GB RAM" },
+  { name: "Qwen 2",          org: "Alibaba",      color: "#E05E2A", date: "Jun 2024", desc: "0.5B–7B embedded-ready" },
+  { name: "SmolLM 135M",     org: "HuggingFace",  color: "#8A7FE0", date: "Jul 2024", desc: "In-browser via WASM" },
+  { name: "Llama 3.2 1–3B",  org: "Meta",         color: "#5FAA22", date: "Sep 2024", desc: "Meta enters sub-4B" },
+  { name: "Phi-4 14B",       org: "Microsoft",    color: "#3B8FD4", date: "Dec 2024", desc: "Beats GPT-4 on MATH" },
+  { name: "Mistral Small 3", org: "Mistral AI",   color: "#C8861A", date: "Jan 2025", desc: "24B, Apache 2.0" },
+  // Row 2: right → left
+  { name: "DeepSeek R1",     org: "DeepSeek",     color: "#D45892", date: "Jan 2025", desc: "Reasoning at 1.5B" },
+  { name: "Gemma 3",         org: "Google",       color: "#1DAA7A", date: "Mar 2025", desc: "1B–27B multimodal" },
+  { name: "Phi-4 Mini 3.8B", org: "Microsoft",    color: "#3B8FD4", date: "Mar 2025", desc: "Function calling" },
+  { name: "Qwen 3",          org: "Alibaba",      color: "#E05E2A", date: "Apr 2025", desc: "Thinking at 0.6B" },
+  { name: "OpenAI OSS 20B",  org: "OpenAI",       color: "#8A8A85", date: "Aug 2025", desc: "Joins open-weight" },
+  { name: "SmolLM3 3B",      org: "HuggingFace",  color: "#8A7FE0", date: "Nov 2025", desc: "Matches 8B, open" },
+  { name: "Gemma 3n",        org: "Google",       color: "#1DAA7A", date: "Jan 2026", desc: "Mobile-first, 2B active" },
+  { name: "Qwen 3.5 0.8B",   org: "Alibaba",      color: "#E05E2A", date: "Feb 2026", desc: "262K ctx, Apache 2.0" },
+];
+
+const row1Count = 9;
+const row2Count = 8;
+
+function render() {
+  const container = document.getElementById('snake');
+  const W = container.clientWidth;
+  const H = container.clientHeight;
+
+  // Layout constants
+  const padX = 60;
+  const lineY1 = H * 0.35;       // Row 1 line Y
+  const lineY2 = H * 0.70;       // Row 2 line Y
+  const bendX = W - padX;        // Where the bend happens (right side)
+  const startX = padX;
+
+  // Build the snake SVG path
+  // Row 1: left to right
+  // Bend: right side, curves down
+  // Row 2: right to left
+  const bendR = (lineY2 - lineY1) / 2;
+  const bendCenterY = (lineY1 + lineY2) / 2;
+
+  const pathD = `
+    M ${startX} ${lineY1}
+    L ${bendX - bendR} ${lineY1}
+    Q ${bendX} ${lineY1} ${bendX} ${lineY1 + bendR}
+    Q ${bendX} ${lineY2} ${bendX - bendR} ${lineY2}
+    L ${startX} ${lineY2}
+  `;
+
+  // Glow + main line SVG
+  const svg = `
+    <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#f97316" stop-opacity="0.15"/>
+          <stop offset="50%"  stop-color="#f97316" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#eab308" stop-opacity="0.3"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Glow layer -->
+      <path d="${pathD}" fill="none" stroke="rgba(249,115,22,0.12)" stroke-width="14" stroke-linecap="round"/>
+      <!-- Main line -->
+      <path d="${pathD}" fill="none" stroke="url(#g1)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
+      <!-- Start dot -->
+      <circle cx="${startX}" cy="${lineY1}" r="5" fill="#f97316" opacity="0.4"/>
+      <!-- End dot -->
+      <circle cx="${startX}" cy="${lineY2}" r="5" fill="#eab308" opacity="0.4"/>
+    </svg>
+  `;
+
+  // Calculate node positions
+  // Row 1: evenly spaced left→right
+  const row1Spacing = (bendX - bendR - startX) / (row1Count - 1);
+  // Row 2: evenly spaced right→left
+  const row2Spacing = (bendX - bendR - startX) / (row2Count - 1);
+
+  let nodesHTML = '';
+
+  // Row 1 nodes (cards alternate above/below the line)
+  for (let i = 0; i < row1Count; i++) {
+    const m = models[i];
+    const x = startX + i * row1Spacing;
+    const isAbove = i % 2 === 0;
+    const nodeClass = isAbove ? 'above' : 'below';
+    const topVal = isAbove ? `${lineY1 - 4}px` : `${lineY1 - 4}px`;
+
+    if (isAbove) {
+      nodesHTML += `
+        <div class="node above" style="left:${x}px; bottom:${H - lineY1 + 4}px;">
+          <div class="info">
+            <div class="date">${m.date}</div>
+            <div class="org" style="color:${m.color};">${m.org}</div>
+            <div class="model">${m.name}</div>
+          </div>
+          <div class="dot" style="border-color:${m.color}; box-shadow: 0 0 8px ${m.color}44;"></div>
+        </div>`;
+    } else {
+      nodesHTML += `
+        <div class="node below" style="left:${x}px; top:${lineY1 - 4}px;">
+          <div class="info">
+            <div class="date">${m.date}</div>
+            <div class="org" style="color:${m.color};">${m.org}</div>
+            <div class="model">${m.name}</div>
+          </div>
+          <div class="dot" style="border-color:${m.color}; box-shadow: 0 0 8px ${m.color}44;"></div>
+        </div>`;
+    }
+  }
+
+  // Row 2 nodes (reversed direction, alternate above/below)
+  for (let i = 0; i < row2Count; i++) {
+    const m = models[row1Count + i];
+    const x = (bendX - bendR) - i * row2Spacing;
+    const isAbove = i % 2 === 0;
+
+    if (isAbove) {
+      nodesHTML += `
+        <div class="node above" style="left:${x}px; bottom:${H - lineY2 + 4}px;">
+          <div class="info">
+            <div class="date">${m.date}</div>
+            <div class="org" style="color:${m.color};">${m.org}</div>
+            <div class="model">${m.name}</div>
+          </div>
+          <div class="dot" style="border-color:${m.color}; box-shadow: 0 0 8px ${m.color}44;"></div>
+        </div>`;
+    } else {
+      nodesHTML += `
+        <div class="node below" style="left:${x}px; top:${lineY2 - 4}px;">
+          <div class="info">
+            <div class="date">${m.date}</div>
+            <div class="org" style="color:${m.color};">${m.org}</div>
+            <div class="model">${m.name}</div>
+          </div>
+          <div class="dot" style="border-color:${m.color}; box-shadow: 0 0 8px ${m.color}44;"></div>
+        </div>`;
+    }
+  }
+
+  // No extra labels — the dates on each node are sufficient
+
+  container.innerHTML = svg + nodesHTML;
+}
+
+render();
+window.addEventListener('resize', render);
+</script>
+
+</body>
+</html>

@@ -177,56 +177,56 @@ The Ferrari vs Civic analogy. Most production tasks are the Civic — reliable, 
 
 ---
 
-<div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Today's Architecture</div>
+<div style="font-size: 28px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Today's Architecture</div>
 
-<div style="display: flex; flex-direction: column; align-items: center; gap: 0; margin-top: 24px; position: relative;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 0; margin-top: 28px; position: relative;">
 
-<div style="padding: 10px 28px; border-radius: 6px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); color: rgba(249,115,22,0.8); font-weight: 700; font-size: 13px; letter-spacing: 0.5px;">APPLICATION</div>
+<div style="padding: 12px 36px; border-radius: 8px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); color: rgba(249,115,22,0.8); font-weight: 700; font-size: 15px; letter-spacing: 0.5px;">APPLICATION</div>
 
-<div style="width: 2px; height: 20px; background: linear-gradient(to bottom, rgba(249,115,22,0.3), rgba(239,68,68,0.3));"></div>
+<div style="width: 2px; height: 24px; background: linear-gradient(to bottom, rgba(249,115,22,0.3), rgba(239,68,68,0.3));"></div>
 
-<div style="border: 1px dashed rgba(249,115,22,0.15); border-radius: 10px; padding: 18px 28px; position: relative; background: rgba(249,115,22,0.02);">
-<div style="position: absolute; top: -9px; left: 50%; transform: translateX(-50%); background: #1a1a2e; padding: 0 12px; font-size: 8px; text-transform: uppercase; letter-spacing: 3px; color: rgba(249,115,22,0.35);">loop until done</div>
+<div style="border: 1px dashed rgba(249,115,22,0.15); border-radius: 12px; padding: 24px 36px; position: relative; background: rgba(249,115,22,0.02); display: flex; justify-content: center;">
+<div style="position: absolute; top: -9px; left: 50%; transform: translateX(-50%); background: #1a1a2e; padding: 0 12px; font-size: 9px; text-transform: uppercase; letter-spacing: 3px; color: rgba(249,115,22,0.35);">loop until done</div>
 
-<div style="display: flex; align-items: center; gap: 14px;">
+<div style="display: flex; align-items: center; gap: 18px;">
 
-<div style="padding: 12px 18px; border-radius: 8px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); text-align: center; min-width: 100px;">
-<div style="color: #f97316; font-weight: 700; font-size: 13px;">Prompt</div>
-<div style="color: rgba(249,115,22,0.4); font-size: 8px; margin-top: 3px;">tasks · screenshots · context</div>
+<div style="padding: 14px 22px; border-radius: 8px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); text-align: center; min-width: 120px;">
+<div style="color: #f97316; font-weight: 700; font-size: 15px;">Prompt</div>
+<div style="color: rgba(249,115,22,0.4); font-size: 9px; margin-top: 4px;">tasks · screenshots · context</div>
 </div>
 
 <div style="display: flex; align-items: center; gap: 4px;">
-<div style="width: 24px; height: 1px; background: rgba(249,115,22,0.2);"></div>
-<div style="color: rgba(249,115,22,0.3); font-size: 12px;">▸</div>
+<div style="width: 30px; height: 2px; background: rgba(249,115,22,0.2);"></div>
+<div style="color: rgba(249,115,22,0.3); font-size: 14px;">▸</div>
 </div>
 
-<div style="padding: 14px 24px; border-radius: 8px; background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(249,115,22,0.05)); border: 1px solid rgba(239,68,68,0.25); text-align: center; box-shadow: 0 0 24px rgba(239,68,68,0.08); min-width: 140px;">
-<div style="background: linear-gradient(135deg, #ef4444, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 16px; letter-spacing: 0.5px;">LLM</div>
-<div style="color: rgba(239,68,68,0.35); font-size: 8px; margin-top: 3px;">GPT-4 · Claude · Gemini</div>
+<div style="padding: 16px 28px; border-radius: 10px; background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(249,115,22,0.05)); border: 1.5px solid rgba(239,68,68,0.25); text-align: center; box-shadow: 0 0 24px rgba(239,68,68,0.08); min-width: 160px;">
+<div style="background: linear-gradient(135deg, #ef4444, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 20px; letter-spacing: 0.5px;">LLM</div>
+<div style="color: rgba(239,68,68,0.35); font-size: 9px; margin-top: 4px;">GPT-4 · Claude · Gemini</div>
 </div>
 
 <div style="display: flex; align-items: center; gap: 4px;">
-<div style="width: 24px; height: 1px; background: rgba(16,185,129,0.2);"></div>
-<div style="color: rgba(16,185,129,0.3); font-size: 12px;">▸</div>
+<div style="width: 30px; height: 2px; background: rgba(16,185,129,0.2);"></div>
+<div style="color: rgba(16,185,129,0.3); font-size: 14px;">▸</div>
 </div>
 
-<div style="padding: 12px 18px; border-radius: 8px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); text-align: center; min-width: 80px;">
-<div style="color: #10b981; font-weight: 700; font-size: 13px;">Result</div>
+<div style="padding: 14px 22px; border-radius: 8px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); text-align: center; min-width: 100px;">
+<div style="color: #10b981; font-weight: 700; font-size: 15px;">Result</div>
 </div>
 
 </div>
 
-<div style="position: absolute; bottom: 6px; right: 14px; font-size: 7px; color: rgba(249,115,22,0.2);">↻ repeat every step</div>
+<div style="position: absolute; bottom: 8px; right: 16px; font-size: 8px; color: rgba(249,115,22,0.2);">↻ repeat every step</div>
 </div>
 
-<div style="width: 2px; height: 20px; background: linear-gradient(to bottom, rgba(16,185,129,0.3), rgba(249,115,22,0.3));"></div>
+<div style="width: 2px; height: 24px; background: linear-gradient(to bottom, rgba(16,185,129,0.3), rgba(16,185,129,0.3));"></div>
 
-<div style="padding: 10px 28px; border-radius: 6px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); color: rgba(249,115,22,0.8); font-weight: 700; font-size: 13px; letter-spacing: 0.5px;">APPLICATION</div>
+<div style="padding: 12px 36px; border-radius: 8px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); color: #10b981; font-weight: 700; font-size: 15px; letter-spacing: 0.5px;">RETURN</div>
 
-<div style="margin-top: 20px; display: flex; gap: 20px; justify-content: center;">
-<div style="display: flex; align-items: center; gap: 6px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #ef4444;"></div><span style="font-size: 10px; color: rgba(255,255,255,0.3);">Single point of failure</span></div>
-<div style="display: flex; align-items: center; gap: 6px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #f97316;"></div><span style="font-size: 10px; color: rgba(255,255,255,0.3);">Context bloat per loop</span></div>
-<div style="display: flex; align-items: center; gap: 6px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #eab308;"></div><span style="font-size: 10px; color: rgba(255,255,255,0.3);">Escalating cost</span></div>
+<div style="margin-top: 24px; display: flex; gap: 24px; justify-content: center;">
+<div style="display: flex; align-items: center; gap: 6px;"><div style="width: 7px; height: 7px; border-radius: 50%; background: #ef4444;"></div><span style="font-size: 11px; color: rgba(255,255,255,0.3);">Single point of failure</span></div>
+<div style="display: flex; align-items: center; gap: 6px;"><div style="width: 7px; height: 7px; border-radius: 50%; background: #f97316;"></div><span style="font-size: 11px; color: rgba(255,255,255,0.3);">Context bloat per loop</span></div>
+<div style="display: flex; align-items: center; gap: 6px;"><div style="width: 7px; height: 7px; border-radius: 50%; background: #eab308;"></div><span style="font-size: 11px; color: rgba(255,255,255,0.3);">Escalating cost</span></div>
 </div>
 
 </div>
@@ -237,6 +237,8 @@ Cost compounds, latency stacks, single point of failure. This is how most produc
 -->
 
 ---
+
+<div style="font-size: 28px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px;">Problems with LLMs</div>
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
 
@@ -316,263 +318,13 @@ The opportunity: Handle 90% of tasks locally and cheaply — escalate only the h
 </div>
 
 ---
-zoom: 0.55
----
 
-<div style="width:1640px; margin:0 auto;">
-<div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
-  <div>
-    <div style="color:rgba(255,255,255,0.85); font-size:16px; font-weight:500; letter-spacing:-0.01em;">The rise of small language models</div>
-    <div style="color:rgba(255,255,255,0.35); font-size:11px; margin-top:3px;">Sep 2023 – Mar 2026 · 17 key releases · 8 labs</div>
-  </div>
-  <div style="display:flex; gap:18px; flex-wrap:wrap; align-items:center;">
-    <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.45);"><span style="width:8px; height:8px; border-radius:50%; background:#C8861A; display:inline-block;"></span>Mistral AI</div>
-    <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.45);"><span style="width:8px; height:8px; border-radius:50%; background:#3B8FD4; display:inline-block;"></span>Microsoft</div>
-    <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.45);"><span style="width:8px; height:8px; border-radius:50%; background:#1DAA7A; display:inline-block;"></span>Google</div>
-    <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.45);"><span style="width:8px; height:8px; border-radius:50%; background:#E05E2A; display:inline-block;"></span>Alibaba</div>
-    <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.45);"><span style="width:8px; height:8px; border-radius:50%; background:#8A7FE0; display:inline-block;"></span>HuggingFace</div>
-    <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.45);"><span style="width:8px; height:8px; border-radius:50%; background:#5FAA22; display:inline-block;"></span>Meta</div>
-    <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.45);"><span style="width:8px; height:8px; border-radius:50%; background:#D45892; display:inline-block;"></span>DeepSeek</div>
-    <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.45);"><span style="width:8px; height:8px; border-radius:50%; background:#8A8A85; display:inline-block;"></span>OpenAI</div>
-  </div>
-</div>
+<iframe src="/timeline.html" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:10;" />
 
-<div style="position:relative; width:1640px; height:420px;">
+<style>
+.slidev-layout { padding: 0 !important; }
+</style>
 
-<!-- Era bands -->
-<div style="position:absolute; left:90px; top:85px; width:195px; height:240px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04);">
-  <div style="padding:4px 6px; font-size:10px; font-weight:500; color:rgba(255,255,255,0.22);">The thesis</div>
-  <div style="padding:0 6px; font-size:9px; color:rgba(255,255,255,0.12);">proven</div>
-</div>
-<div style="position:absolute; left:285px; top:85px; width:584px; height:240px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04);">
-  <div style="padding:4px 6px; font-size:10px; font-weight:500; color:rgba(255,255,255,0.22);">The explosion</div>
-  <div style="padding:0 6px; font-size:9px; color:rgba(255,255,255,0.12);">6 families in 12 months</div>
-</div>
-<div style="position:absolute; left:869px; top:85px; width:584px; height:240px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04);">
-  <div style="padding:4px 6px; font-size:10px; font-weight:500; color:rgba(255,255,255,0.22);">On-device becomes mainstream</div>
-</div>
-<div style="position:absolute; left:1453px; top:85px; width:97px; height:240px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04);">
-  <div style="padding:4px 6px; font-size:10px; font-weight:500; color:rgba(255,255,255,0.22);">Everywhere</div>
-  <div style="padding:0 6px; font-size:9px; color:rgba(255,255,255,0.12);">2026</div>
-</div>
-
-<!-- Year dividers -->
-<div style="position:absolute; left:90px; top:35px; width:1px; height:345px; background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 3px, transparent 3px, transparent 7px);"></div>
-<div style="position:absolute; left:94px; top:202px; font-size:10px; color:rgba(255,255,255,0.2); font-family:system-ui,sans-serif;">Sep 2023</div>
-<div style="position:absolute; left:285px; top:35px; width:1px; height:345px; background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 3px, transparent 3px, transparent 7px);"></div>
-<div style="position:absolute; left:289px; top:202px; font-size:10px; color:rgba(255,255,255,0.2); font-family:system-ui,sans-serif;">Jan 2024</div>
-<div style="position:absolute; left:869px; top:35px; width:1px; height:345px; background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 3px, transparent 3px, transparent 7px);"></div>
-<div style="position:absolute; left:873px; top:202px; font-size:10px; color:rgba(255,255,255,0.2); font-family:system-ui,sans-serif;">Jan 2025</div>
-<div style="position:absolute; left:1453px; top:35px; width:1px; height:345px; background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 3px, transparent 3px, transparent 7px);"></div>
-<div style="position:absolute; left:1457px; top:202px; font-size:10px; color:rgba(255,255,255,0.2); font-family:system-ui,sans-serif;">Jan 2026</div>
-
-<!-- Timeline line -->
-<div style="position:absolute; left:90px; top:204px; width:1460px; height:2px; background:rgba(255,255,255,0.18);"></div>
-
-<!-- 1. Mistral 7B — above0 x=90 -->
-<div style="position:absolute; left:24px; top:105px; width:132px; height:73px; border-radius:6px; background:rgba(200,134,26,0.08); border:1px solid rgba(200,134,26,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Mistral 7B</div>
-  <div style="font-size:10px; font-weight:500; color:#C8861A; margin-top:2px;">Mistral AI</div>
-  <div style="width:116px; height:1px; background:rgba(200,134,26,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">First 7B to rival</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">5× larger models</div>
-</div>
-<div style="position:absolute; left:90px; top:178px; width:1px; height:27px; background:#C8861A; opacity:0.55;"></div>
-<div style="position:absolute; left:82px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(200,134,26,0.15);"></div>
-<div style="position:absolute; left:85px; top:200px; width:10px; height:10px; border-radius:50%; background:#C8861A; border:2px solid #0c0a09;"></div>
-
-<!-- 2. Phi-1.5 1.3B — below0 x=187 -->
-<div style="position:absolute; left:179px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(59,143,212,0.15);"></div>
-<div style="position:absolute; left:182px; top:200px; width:10px; height:10px; border-radius:50%; background:#3B8FD4; border:2px solid #0c0a09;"></div>
-<div style="position:absolute; left:187px; top:205px; width:1px; height:27px; background:#3B8FD4; opacity:0.55;"></div>
-<div style="position:absolute; left:121px; top:232px; width:132px; height:73px; border-radius:6px; background:rgba(59,143,212,0.08); border:1px solid rgba(59,143,212,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Phi-1.5  1.3B</div>
-  <div style="font-size:10px; font-weight:500; color:#3B8FD4; margin-top:2px;">Microsoft</div>
-  <div style="width:116px; height:1px; background:rgba(59,143,212,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Synthetic data</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">beats raw scale</div>
-</div>
-
-<!-- 3. Gemma 2B/7B — above0 x=333 -->
-<div style="position:absolute; left:267px; top:105px; width:132px; height:73px; border-radius:6px; background:rgba(29,170,122,0.08); border:1px solid rgba(29,170,122,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Gemma 2B / 7B</div>
-  <div style="font-size:10px; font-weight:500; color:#1DAA7A; margin-top:2px;">Google</div>
-  <div style="width:116px; height:1px; background:rgba(29,170,122,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Google enters open</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">SLM space</div>
-</div>
-<div style="position:absolute; left:333px; top:178px; width:1px; height:27px; background:#1DAA7A; opacity:0.55;"></div>
-<div style="position:absolute; left:325px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(29,170,122,0.15);"></div>
-<div style="position:absolute; left:328px; top:200px; width:10px; height:10px; border-radius:50%; background:#1DAA7A; border:2px solid #0c0a09;"></div>
-
-<!-- 4. Phi-3 Mini 3.8B — below0 x=431 -->
-<div style="position:absolute; left:423px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(59,143,212,0.15);"></div>
-<div style="position:absolute; left:426px; top:200px; width:10px; height:10px; border-radius:50%; background:#3B8FD4; border:2px solid #0c0a09;"></div>
-<div style="position:absolute; left:431px; top:205px; width:1px; height:27px; background:#3B8FD4; opacity:0.55;"></div>
-<div style="position:absolute; left:365px; top:232px; width:132px; height:73px; border-radius:6px; background:rgba(59,143,212,0.08); border:1px solid rgba(59,143,212,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Phi-3 Mini  3.8B</div>
-  <div style="font-size:10px; font-weight:500; color:#3B8FD4; margin-top:2px;">Microsoft</div>
-  <div style="width:116px; height:1px; background:rgba(59,143,212,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Runs in 4 GB RAM,</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">CPU-only</div>
-</div>
-
-<!-- 5. Qwen 2 — above0 x=528 -->
-<div style="position:absolute; left:462px; top:105px; width:132px; height:73px; border-radius:6px; background:rgba(224,94,42,0.08); border:1px solid rgba(224,94,42,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Qwen 2</div>
-  <div style="font-size:10px; font-weight:500; color:#E05E2A; margin-top:2px;">Alibaba</div>
-  <div style="width:116px; height:1px; background:rgba(224,94,42,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">0.5B–7B family,</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">embedded-ready</div>
-</div>
-<div style="position:absolute; left:528px; top:178px; width:1px; height:27px; background:#E05E2A; opacity:0.55;"></div>
-<div style="position:absolute; left:520px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(224,94,42,0.15);"></div>
-<div style="position:absolute; left:523px; top:200px; width:10px; height:10px; border-radius:50%; background:#E05E2A; border:2px solid #0c0a09;"></div>
-
-<!-- 6. SmolLM 135M–1.7B — below0 x=625 -->
-<div style="position:absolute; left:617px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(138,127,224,0.15);"></div>
-<div style="position:absolute; left:620px; top:200px; width:10px; height:10px; border-radius:50%; background:#8A7FE0; border:2px solid #0c0a09;"></div>
-<div style="position:absolute; left:625px; top:205px; width:1px; height:27px; background:#8A7FE0; opacity:0.55;"></div>
-<div style="position:absolute; left:559px; top:232px; width:132px; height:73px; border-radius:6px; background:rgba(138,127,224,0.08); border:1px solid rgba(138,127,224,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">SmolLM 135M–1.7B</div>
-  <div style="font-size:10px; font-weight:500; color:#8A7FE0; margin-top:2px;">HuggingFace</div>
-  <div style="width:116px; height:1px; background:rgba(138,127,224,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">In-browser inference</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">via WASM</div>
-</div>
-
-<!-- 7. Llama 3.2 1–3B — above0 x=674 -->
-<div style="position:absolute; left:608px; top:105px; width:132px; height:73px; border-radius:6px; background:rgba(95,170,34,0.08); border:1px solid rgba(95,170,34,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Llama 3.2  1–3B</div>
-  <div style="font-size:10px; font-weight:500; color:#5FAA22; margin-top:2px;">Meta</div>
-  <div style="width:116px; height:1px; background:rgba(95,170,34,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Meta enters the</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">sub-4B category</div>
-</div>
-<div style="position:absolute; left:674px; top:178px; width:1px; height:27px; background:#5FAA22; opacity:0.55;"></div>
-<div style="position:absolute; left:666px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(95,170,34,0.15);"></div>
-<div style="position:absolute; left:669px; top:200px; width:10px; height:10px; border-radius:50%; background:#5FAA22; border:2px solid #0c0a09;"></div>
-
-<!-- 8. Phi-4 14B — below0 x=820 -->
-<div style="position:absolute; left:812px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(59,143,212,0.15);"></div>
-<div style="position:absolute; left:815px; top:200px; width:10px; height:10px; border-radius:50%; background:#3B8FD4; border:2px solid #0c0a09;"></div>
-<div style="position:absolute; left:820px; top:205px; width:1px; height:27px; background:#3B8FD4; opacity:0.55;"></div>
-<div style="position:absolute; left:754px; top:232px; width:132px; height:73px; border-radius:6px; background:rgba(59,143,212,0.08); border:1px solid rgba(59,143,212,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Phi-4  14B</div>
-  <div style="font-size:10px; font-weight:500; color:#3B8FD4; margin-top:2px;">Microsoft</div>
-  <div style="width:116px; height:1px; background:rgba(59,143,212,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Outperforms GPT-4</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">on MATH benchmark</div>
-</div>
-
-<!-- 9. Mistral Small 3 — above0 x=869 -->
-<div style="position:absolute; left:803px; top:105px; width:132px; height:73px; border-radius:6px; background:rgba(200,134,26,0.08); border:1px solid rgba(200,134,26,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Mistral Small 3</div>
-  <div style="font-size:10px; font-weight:500; color:#C8861A; margin-top:2px;">Mistral AI</div>
-  <div style="width:116px; height:1px; background:rgba(200,134,26,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">24B, Apache 2.0,</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">strong instruct</div>
-</div>
-<div style="position:absolute; left:869px; top:178px; width:1px; height:27px; background:#C8861A; opacity:0.55;"></div>
-<div style="position:absolute; left:861px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(200,134,26,0.15);"></div>
-<div style="position:absolute; left:864px; top:200px; width:10px; height:10px; border-radius:50%; background:#C8861A; border:2px solid #0c0a09;"></div>
-
-<!-- 10. DeepSeek R1 1.5B — below1 x=917 -->
-<div style="position:absolute; left:909px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(212,88,146,0.15);"></div>
-<div style="position:absolute; left:912px; top:200px; width:10px; height:10px; border-radius:50%; background:#D45892; border:2px solid #0c0a09;"></div>
-<div style="position:absolute; left:917px; top:205px; width:1px; height:115px; background:#D45892; opacity:0.55;"></div>
-<div style="position:absolute; left:851px; top:320px; width:132px; height:73px; border-radius:6px; background:rgba(212,88,146,0.08); border:1px solid rgba(212,88,146,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">DeepSeek R1 1.5B</div>
-  <div style="font-size:10px; font-weight:500; color:#D45892; margin-top:2px;">DeepSeek</div>
-  <div style="width:116px; height:1px; background:rgba(212,88,146,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Reasoning at 1.5B</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">via distillation</div>
-</div>
-
-<!-- 11. Gemma 3 — above1 x=966 -->
-<div style="position:absolute; left:900px; top:18px; width:132px; height:73px; border-radius:6px; background:rgba(29,170,122,0.08); border:1px solid rgba(29,170,122,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Gemma 3</div>
-  <div style="font-size:10px; font-weight:500; color:#1DAA7A; margin-top:2px;">Google</div>
-  <div style="width:116px; height:1px; background:rgba(29,170,122,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">1B–27B multimodal,</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">140 languages</div>
-</div>
-<div style="position:absolute; left:966px; top:91px; width:1px; height:114px; background:#1DAA7A; opacity:0.55;"></div>
-<div style="position:absolute; left:958px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(29,170,122,0.15);"></div>
-<div style="position:absolute; left:961px; top:200px; width:10px; height:10px; border-radius:50%; background:#1DAA7A; border:2px solid #0c0a09;"></div>
-
-<!-- 12. Phi-4 Mini 3.8B — below0 x=966 -->
-<div style="position:absolute; left:966px; top:205px; width:1px; height:27px; background:#3B8FD4; opacity:0.55;"></div>
-<div style="position:absolute; left:900px; top:232px; width:132px; height:73px; border-radius:6px; background:rgba(59,143,212,0.08); border:1px solid rgba(59,143,212,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Phi-4 Mini  3.8B</div>
-  <div style="font-size:10px; font-weight:500; color:#3B8FD4; margin-top:2px;">Microsoft</div>
-  <div style="width:116px; height:1px; background:rgba(59,143,212,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Function calling</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">at 3.8B params</div>
-</div>
-
-<!-- 13. Qwen 3 — above0 x=1015 -->
-<div style="position:absolute; left:949px; top:105px; width:132px; height:73px; border-radius:6px; background:rgba(224,94,42,0.08); border:1px solid rgba(224,94,42,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Qwen 3</div>
-  <div style="font-size:10px; font-weight:500; color:#E05E2A; margin-top:2px;">Alibaba</div>
-  <div style="width:116px; height:1px; background:rgba(224,94,42,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Thinking mode at</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">0.6B params</div>
-</div>
-<div style="position:absolute; left:1015px; top:178px; width:1px; height:27px; background:#E05E2A; opacity:0.55;"></div>
-<div style="position:absolute; left:1007px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(224,94,42,0.15);"></div>
-<div style="position:absolute; left:1010px; top:200px; width:10px; height:10px; border-radius:50%; background:#E05E2A; border:2px solid #0c0a09;"></div>
-
-<!-- 14. OpenAI OSS 20B — below0 x=1209 -->
-<div style="position:absolute; left:1201px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(138,138,133,0.15);"></div>
-<div style="position:absolute; left:1204px; top:200px; width:10px; height:10px; border-radius:50%; background:#8A8A85; border:2px solid #0c0a09;"></div>
-<div style="position:absolute; left:1209px; top:205px; width:1px; height:27px; background:#8A8A85; opacity:0.55;"></div>
-<div style="position:absolute; left:1143px; top:232px; width:132px; height:73px; border-radius:6px; background:rgba(138,138,133,0.08); border:1px solid rgba(138,138,133,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">OpenAI OSS  20B</div>
-  <div style="font-size:10px; font-weight:500; color:#8A8A85; margin-top:2px;">OpenAI</div>
-  <div style="width:116px; height:1px; background:rgba(138,138,133,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">OpenAI joins the</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">open-weight race</div>
-</div>
-
-<!-- 15. SmolLM3 3B — above0 x=1355 -->
-<div style="position:absolute; left:1289px; top:105px; width:132px; height:73px; border-radius:6px; background:rgba(138,127,224,0.08); border:1px solid rgba(138,127,224,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">SmolLM3  3B</div>
-  <div style="font-size:10px; font-weight:500; color:#8A7FE0; margin-top:2px;">HuggingFace</div>
-  <div style="width:116px; height:1px; background:rgba(138,127,224,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Matches 8B models,</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">fully open blueprint</div>
-</div>
-<div style="position:absolute; left:1355px; top:178px; width:1px; height:27px; background:#8A7FE0; opacity:0.55;"></div>
-<div style="position:absolute; left:1347px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(138,127,224,0.15);"></div>
-<div style="position:absolute; left:1350px; top:200px; width:10px; height:10px; border-radius:50%; background:#8A7FE0; border:2px solid #0c0a09;"></div>
-
-<!-- 16. Gemma 3n — below0 x=1501 -->
-<div style="position:absolute; left:1493px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(29,170,122,0.15);"></div>
-<div style="position:absolute; left:1496px; top:200px; width:10px; height:10px; border-radius:50%; background:#1DAA7A; border:2px solid #0c0a09;"></div>
-<div style="position:absolute; left:1501px; top:205px; width:1px; height:27px; background:#1DAA7A; opacity:0.55;"></div>
-<div style="position:absolute; left:1435px; top:232px; width:132px; height:73px; border-radius:6px; background:rgba(29,170,122,0.08); border:1px solid rgba(29,170,122,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Gemma 3n</div>
-  <div style="font-size:10px; font-weight:500; color:#1DAA7A; margin-top:2px;">Google</div>
-  <div style="width:116px; height:1px; background:rgba(29,170,122,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Mobile-first 5B,</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">2B active footprint</div>
-</div>
-
-<!-- 17. Qwen 3.5 0.8B — above0 x=1550 -->
-<div style="position:absolute; left:1484px; top:105px; width:132px; height:73px; border-radius:6px; background:rgba(224,94,42,0.08); border:1px solid rgba(224,94,42,0.7); text-align:center;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.88); margin-top:8px;">Qwen 3.5  0.8B</div>
-  <div style="font-size:10px; font-weight:500; color:#E05E2A; margin-top:2px;">Alibaba</div>
-  <div style="width:116px; height:1px; background:rgba(224,94,42,0.3); margin:5px auto 4px;"></div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">262K context,</div>
-  <div style="font-size:9.5px; color:rgba(255,255,255,0.38);">Apache 2.0</div>
-</div>
-<div style="position:absolute; left:1550px; top:178px; width:1px; height:27px; background:#E05E2A; opacity:0.55;"></div>
-<div style="position:absolute; left:1542px; top:197px; width:16px; height:16px; border-radius:50%; background:rgba(224,94,42,0.15);"></div>
-<div style="position:absolute; left:1545px; top:200px; width:10px; height:10px; border-radius:50%; background:#E05E2A; border:2px solid #0c0a09;"></div>
-
-</div>
-</div>
 
 ---
 
@@ -747,24 +499,17 @@ Three paths — the audience should know which one fits their use case.
 <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 1: JSON Parsing</div>
 <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">NuExtract-2.0-2B · Ollama · Template-guided extraction</div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; font-size: 13px;">
 <div>
 
-### What happens
-Feed an invoice text, get clean JSON back — no prompt engineering needed.
+**What happens** — Feed invoice text, get clean JSON back. No prompt engineering.
 
-### Model
-**NuExtract-2.0-2B** — fine-tuned for structured extraction using a template schema. Just define the shape, get the data.
+**Model** — **NuExtract-2.0-2B**, fine-tuned for structured extraction. Define the shape, get the data.
 
-### Why this model
-- Template-driven: you define the JSON shape, it fills it
-- 2B params, runs locally via Ollama
-- Cloud equivalent: GPT-4o ~$0.02/call
+**Why this model** — Template-driven, 2B params, runs locally via Ollama. Cloud equivalent: GPT-4o ~$0.02/call.
 
 </div>
 <div>
-
-### Live Input → Output
 
 **Template:**
 ```json
@@ -773,8 +518,6 @@ Feed an invoice text, get clean JSON back — no prompt engineering needed.
    {"name": "", "quantity": 0, "unit_price": 0}
  ], "tax_rate": 0}
 ```
-
-**Output:** structured JSON with all fields populated from raw invoice text — invoice number, line items, tax rate, all extracted in one pass.
 
 | Metric | Value |
 |--------|-------|
@@ -803,32 +546,22 @@ LIVE DEMO: Run via demo_runner UI. Show template → JSON extraction. Emphasize 
 <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 2: PDF Extraction</div>
 <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">PaddleOCR-VL-1.5 · MLX-VLM · Vision-language OCR</div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; font-size: 13px;">
 <div>
 
-### What happens
-Feed a PDF image, get structured text — tables, headers, formatting all preserved.
+**What happens** — Feed a PDF image, get structured text with tables and headers preserved.
 
-### Model
-**PaddleOCR-VL-1.5** (0.9B) — a vision-language model that reads document images directly. No traditional OCR pipeline needed.
+**Model** — **PaddleOCR-VL-1.5** (0.9B), a vision-language model that reads document images directly. No traditional OCR pipeline.
 
-### Why this model
-- Only 0.9B parameters — smaller than most OCR pipelines
-- Runs via MLX-VLM on Apple Silicon
-- Replaces Tesseract + regex + postprocessing
-- Cloud equivalent: GPT-4V ~$0.05/call
+**Why this model** — 0.9B params, runs via MLX-VLM. Replaces Tesseract + regex + postprocessing. Cloud equivalent: GPT-4V ~$0.05/call.
 
 </div>
 <div>
 
-### What to watch
-
-Upload a real invoice PDF → model reads the image pixels → outputs clean Markdown with tables preserved.
-
+**Pipeline:**
 ```
 PDF page (image) → PaddleOCR-VL → Markdown
 ```
-
 One model call replaces an entire OCR pipeline.
 
 | Metric | Value |
@@ -858,26 +591,21 @@ LIVE DEMO: Upload a messy invoice PDF. Show Markdown output with tables. Compare
 <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 3: General Reasoning</div>
 <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">Qwen3.5-2B · Ollama · Thinking mode on/off</div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; font-size: 13px;">
 <div>
 
-### What happens
-Same model, same prompt — toggle thinking mode and watch accuracy change dramatically.
+**What happens** — Same model, same prompt — toggle thinking mode and watch accuracy change.
 
-### Model
-**Qwen3.5-2B** — supports native thinking mode via Ollama's `think` parameter. No prompt prefix needed.
+**Model** — **Qwen3.5-2B**, supports native thinking mode via Ollama's `think` parameter.
 
-### The test
-> A store offers 20% off a $150 jacket, then 15% more off, plus a $10 coupon. Final price? Better or worse than a single 35% discount?
+**The test** — *A store offers 20% off a $150 jacket, then 15% more off, plus a $10 coupon. Final price? Better or worse than a single 35% discount?*
 
 </div>
 <div>
 
-### Two runs, same model
-
 **Run 1 — No thinking:** Fast answer, likely misses the comparison or makes a math error.
 
-**Run 2 — With thinking:** Step-by-step chain-of-thought streams live. Correctly computes both paths and explains why stacked ≠ combined discounts.
+**Run 2 — With thinking:** Step-by-step chain-of-thought streams live. Correctly computes both paths.
 
 Thinking mode is a toggle, not a different model.
 
@@ -908,29 +636,21 @@ LIVE DEMO: Run without thinking first, then with thinking. Show the chain-of-tho
 <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 4: Code Generation</div>
 <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">Qwen3.5-4B · Ollama · Production-quality code</div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; font-size: 13px;">
 <div>
 
-### What happens
-Generate a complete, runnable FastAPI app from a natural language spec — with type hints, error handling, and a health check endpoint.
+**What happens** — Generate a complete, runnable FastAPI app from a natural language spec.
 
-### Model
-**Qwen3.5-4B** — general-purpose model with strong code generation. Not a coding-specific model, but produces clean, idiomatic Python.
+**Model** — **Qwen3.5-4B**, general-purpose with strong code gen. Produces clean, idiomatic Python.
 
-### Why this matters
-- No GitHub Copilot subscription needed
-- Scoped code tasks don't need 100B+ models
-- Cloud equivalent: Copilot ~$10/month
+**Why this matters** — No Copilot subscription needed. Scoped code tasks don't need 100B+ models. Cloud equivalent: ~$10/month.
 
 </div>
 <div>
 
-### The prompt
+**The prompt** — *Write a FastAPI endpoint: POST with "text" and "language" fields, count sentences/words/chars, return JSON, error handling, type hints, health check.*
 
-> Write a FastAPI endpoint: POST with "text" and "language" fields, count sentences/words/chars, return JSON analysis, error handling, type hints, health check.
-
-### Expected output
-A complete runnable Python file with imports, Pydantic models, endpoints, and error handling.
+**Expected:** Complete runnable Python file with imports, Pydantic models, endpoints, error handling.
 
 | Metric | Value |
 |--------|-------|
@@ -959,31 +679,21 @@ LIVE DEMO: Generate FastAPI app. Could copy-paste and run it to prove it works.
 <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Demo 5: Multilingual</div>
 <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px;">Tiny Aya Fire · Ollama · 3B · 4 languages</div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; font-size: 13px;">
 <div>
 
-### What happens
-A 3B model explains "small language models" in English, Hindi, Tamil, and Telugu — all in one pass.
+**What happens** — A 3B model explains "small language models" in English, Hindi, Tamil, and Telugu — all in one pass.
 
-### Model
-**Tiny Aya Fire** (3B) — Cohere's multilingual model, trained across 100+ languages. Specifically strong on Indic languages.
+**Model** — **Tiny Aya Fire** (3B), Cohere's multilingual model. 100+ languages, strong on Indic.
 
-### Why at PyConf Hyderabad
-- Local languages matter for Indian deployment
-- PII stays on-device across all languages
-- Cloud equivalent: GPT-4o ~$0.01/call
+**Why at PyConf Hyderabad** — Local languages matter for Indian deployment. PII stays on-device. Cloud equivalent: GPT-4o ~$0.01/call.
 
 </div>
 <div>
 
-### The prompt
+**The prompt** — *Explain what a "small language model" is in 4 languages: English, Hindi (हिंदी), Tamil (தமிழ்), Telugu (తెలుగు). Keep each to 2 sentences.*
 
-> Explain what a "small language model" is in 4 languages: English, Hindi (हिंदी), Tamil (தமிழ்), Telugu (తెలుగు). Keep each to 2 sentences.
-
-### What to watch
-- Script rendering quality
-- Factual consistency across languages
-- 3B model handling 4 languages simultaneously
+**Watch for:** Script rendering, factual consistency, 3B handling 4 languages.
 
 | Metric | Value |
 |--------|-------|
