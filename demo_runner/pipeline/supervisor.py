@@ -17,7 +17,7 @@ if _env.exists():
             os.environ.setdefault(_k.strip(), _v.strip())
 
 SUPERVISOR_LOCAL_MODEL = "qwen3.5:9b"
-SUPERVISOR_CLOUD_MODEL = "qwen/qwen3.5-35b-a3b"
+SUPERVISOR_CLOUD_MODEL = "qwen/qwen3.5-9b"
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
@@ -275,7 +275,8 @@ async def run_pipeline(run_id: str, pdf_file: str | None = None, invoice_json: d
                 # Dispatch A2A tool call
                 try:
                     if tool_name == "ocr_worker":
-                        result = await _call_ocr(run_id, tool_args.get("file", ""))
+                        # Use the actual selected file, not what the LLM hallucinated
+                        result = await _call_ocr(run_id, pdf_file or tool_args.get("file", ""))
                     elif tool_name == "json_worker":
                         result = await _call_json(run_id, tool_args.get("text", ""))
                     elif tool_name == "browser_worker":

@@ -76,7 +76,7 @@ python app.py
 | Role | Model | Size | Runtime |
 |------|-------|------|---------|
 | Supervisor (local) | Qwen3.5 | 9B | Ollama |
-| Supervisor (cloud) | Qwen3.5-35B-A3B | 35B | OpenRouter |
+| Supervisor (cloud) | Qwen3.5-9B | 9B | OpenRouter |
 | OCR Worker | PaddleOCR-VL-1.5 | 0.9B | MLX-VLM |
 | JSON Worker | NuExtract-2.0 | 2B | Ollama |
 | Browser Worker | Playwright (Python) | — | — |

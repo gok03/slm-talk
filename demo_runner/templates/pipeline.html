@@ -99,7 +99,7 @@
   <button class="btn-clear" onclick="clearAll()">✕ Clear</button>
   <div class="model-toggle">
     <button id="toggle-local" class="active" onclick="setModel('local')">Local · 9b</button>
-    <button id="toggle-cloud" onclick="setModel('cloud')">Cloud · 35B</button>
+    <button id="toggle-cloud" onclick="setModel('cloud')">Cloud · 9B</button>
   </div>
   <span id="run-status" style="font-size:11px;color:#8b949e;margin-left:8px"></span>
 </div>
@@ -172,8 +172,8 @@
     useCloud = mode === 'cloud';
     document.getElementById('toggle-local').classList.toggle('active', !useCloud);
     document.getElementById('toggle-cloud').classList.toggle('active', useCloud);
-    const label = useCloud ? 'Qwen3.5-35B · OpenRouter' : 'Qwen3.5-9b · Ollama';
-    const shortLabel = useCloud ? '35B-A3B · OpenRouter' : '9b · Ollama';
+    const label = useCloud ? 'Qwen3.5-9B · OpenRouter' : 'Qwen3.5-9b · Ollama';
+    const shortLabel = useCloud ? '9B · OpenRouter' : '9b · Ollama';
     document.getElementById('footer-supervisor').textContent = label;
     document.getElementById('footer-browser').textContent = `${shortLabel} · Playwright MCP`;
   }
