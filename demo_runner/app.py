@@ -1010,7 +1010,7 @@ if __name__ == "__main__":
     import uvicorn
 
     print("─" * 52)
-    print("  SLM Demo Runner — PyConf Hyderabad 2026")
+    print("  SLM Demo Runner — Small Models, Big Impact")
     print("─" * 52)
     print("  URL: http://localhost:8000")
     print()

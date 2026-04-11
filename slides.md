@@ -6,7 +6,7 @@ info: |
   ## Small Models, Big Impact
   Why Your Next Production System Doesn't Need a GPT
 
-  PyConf Hyderabad 2026
+  Small Models, Big Impact
 transition: slide-left
 colorSchema: dark
 fonts:
@@ -20,7 +20,7 @@ aspectRatio: 16/9
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
   <div style="font-size: 42px; font-weight: 800; letter-spacing: -1.5px; background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1;">Small Models, Big Impact</div>
   <div style="color: rgba(255,255,255,0.45); font-size: 16px; margin-top: 12px; letter-spacing: 0.5px;">Why Your Next Production System Doesn't Need a GPT</div>
-  <div style="margin-top: 32px; padding: 5px 16px; border-radius: 99px; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); color: rgba(249,115,22,0.7); font-size: 11px;">PyConf Hyderabad 2026</div>
+  <div style="margin-top: 32px; padding: 5px 16px; border-radius: 99px; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); color: rgba(249,115,22,0.7); font-size: 11px;">Small Models, Big Impact</div>
   <div style="color: rgba(255,255,255,0.25); font-size: 11px; margin-top: 20px;">Gokulavasan Murali · Head of Engineering, Emma Robots Inc.</div>
 </div>
 
@@ -686,7 +686,7 @@ LIVE DEMO: Generate FastAPI app. Could copy-paste and run it to prove it works.
 
 **Model** — **Tiny Aya Fire** (3B), Cohere's multilingual model. 100+ languages, strong on Indic.
 
-**Why at PyConf Hyderabad** — Local languages matter for Indian deployment. PII stays on-device. Cloud equivalent: GPT-4o ~$0.01/call.
+Local languages matter for regional deployment. PII stays on-device. Cloud equivalent: GPT-4o ~$0.01/call.
 
 </div>
 <div>

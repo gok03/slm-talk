@@ -1,6 +1,6 @@
 # Small Models, Big Impact
 
-Talk slides and live demo runner for **PyConf Hyderabad 2026**.
+Talk slides and live demo runner for **Small Models, Big Impact**.
 
 ## Setup
 
